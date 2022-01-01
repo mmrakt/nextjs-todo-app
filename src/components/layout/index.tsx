@@ -1,5 +1,7 @@
-import React from 'react'
 import Header from '../header/index'
+import Router from 'next/router'
+import { useSession } from 'next-auth/react'
+import React, { useState, useEffect } from 'react'
 
 type LayoutProps = {
   children: React.ReactNode

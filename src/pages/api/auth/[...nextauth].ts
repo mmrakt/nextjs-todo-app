@@ -24,6 +24,7 @@ export default NextAuth({
   pages: {
     signIn: '/signin',
   },
+  secret: process.env.SECRET,
   callbacks: {
     async signIn({ user }) {
       const document = firestore.doc(`users/${user.id}`)

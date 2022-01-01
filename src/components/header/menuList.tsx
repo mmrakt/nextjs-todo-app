@@ -19,7 +19,7 @@ const MenuList = React.memo(() => {
   }
   const handleSignin = (event) => {
     event.preventDefault()
-    signIn()
+    Router.push('/signin')
   }
   const handleSignout = (event) => {
     event.preventDefault()

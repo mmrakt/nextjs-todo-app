@@ -7,8 +7,6 @@ import Head from 'next/head'
 import NextNprogress from 'nextjs-progressbar'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
-
-import { AuthProvider } from '../auth/AuthProvider'
 import theme from '../components/theme'
 import store from '../store/store'
 import 'minireset.css'
@@ -34,24 +32,22 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <>
       <Head>
-        <title>日報つーる</title>
+        <title>TODO App</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
       <Provider store={store}>
-        <AuthProvider>
-          <QueryClientProvider client={queryClient}>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <SessionProvider session={session}>
-                <NextNprogress />
-                <Component {...pageProps} />
-              </SessionProvider>
-            </ThemeProvider>
-          </QueryClientProvider>
-        </AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <SessionProvider session={session}>
+              <NextNprogress />
+              <Component {...pageProps} />
+            </SessionProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
       </Provider>
     </>
   )

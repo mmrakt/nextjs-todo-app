@@ -1,6 +1,5 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
-import { getAuth } from 'firebase/auth'
 import { getStorage } from 'firebase/storage'
 import { getFunctions } from 'firebase/functions'
 
@@ -13,18 +12,10 @@ const firebaseConfig = {
   messagingSenderId: process.env.FB_MESSAGING_SENDER_ID,
   appId: process.env.FB_APP_ID,
 }
-// if (!firebase.apps.length) {
-//   firebase.initializeApp(firebaseConfig);
-//   console.log("Firebase inialization secusess");
-// } else {
-//   console.error("Firebase initialization error");
-// }
 
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
-const auth = getAuth()
 const storage = getStorage(app)
 const functions = getFunctions(app)
-// functions.useEmulator("localhost", 5001);
 
-export { app, db, auth, storage, functions }
+export { app, db, storage, functions }

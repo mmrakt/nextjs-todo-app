@@ -21,6 +21,13 @@
       "jsx": true
     }
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
   "rules": {
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-explicit-any": 0,
