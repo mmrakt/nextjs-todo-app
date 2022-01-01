@@ -1,6 +1,5 @@
 import Header from '../header/index'
 import Router from 'next/router'
-import { useSession } from 'next-auth/react'
 import React, { useState, useEffect } from 'react'
 
 type LayoutProps = {
@@ -10,10 +9,10 @@ type LayoutProps = {
 
 function Layout(props: LayoutProps): React.ReactElement {
   return (
-    <div className="flex-grow">
+    <div className="flex-grow dark:text-white dark:bg-dark-black bg-gray-100 h-screen">
       <Header />
-      <main className="max-w-screen-md mx-auto my-20">
-        <div>{props.children}</div>
+      <main className="pc:py-10 py-6">
+        <div className="max-w-2xl mx-auto">{props.children}</div>
       </main>
     </div>
   )

@@ -16,7 +16,7 @@ function SocialButton({
 }: IProps): React.ReactElement {
   return (
     <button
-      className={`${theme} hover:${hoverColor} text-white font-bold py-2 px-4 my-2 rounded`}
+      className={`${theme} hover:${hoverColor} text-white font-bold py-3 px-4 my-4 rounded`}
       onClick={() => {
         signIn(id)
       }}

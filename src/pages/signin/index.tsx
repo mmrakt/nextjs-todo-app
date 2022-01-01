@@ -17,32 +17,34 @@ function Signin({
 }): React.ReactNode {
   return (
     <Layout title="ログイン">
-      {Object.values(providers).map((provider) => (
-        <div key={provider.id}>
-          <SocialButton
-            id={provider.id}
-            name={provider.name}
-            theme={
-              provider.name === 'GitHub'
-                ? 'bg-gray-500'
-                : provider.name === 'Google'
-                ? 'bg-red-400'
-                : provider.name === 'Twitter'
-                ? 'bg-blue-500'
-                : ''
-            }
-            hoverColor={
-              provider.name === 'GitHub'
-                ? 'bg-gray-600'
-                : provider.name === 'Google'
-                ? 'bg-red-500'
-                : provider.name === 'Twitter'
-                ? 'bg-blue-600'
-                : ''
-            }
-          />
-        </div>
-      ))}
+      <div className="text-center">
+        {Object.values(providers).map((provider) => (
+          <div key={provider.id}>
+            <SocialButton
+              id={provider.id}
+              name={provider.name}
+              theme={
+                provider.name === 'GitHub'
+                  ? 'bg-gray-500'
+                  : provider.name === 'Google'
+                  ? 'bg-red-400'
+                  : provider.name === 'Twitter'
+                  ? 'bg-blue-500'
+                  : ''
+              }
+              hoverColor={
+                provider.name === 'GitHub'
+                  ? 'bg-gray-600'
+                  : provider.name === 'Google'
+                  ? 'bg-red-500'
+                  : provider.name === 'Twitter'
+                  ? 'bg-blue-600'
+                  : ''
+              }
+            />
+          </div>
+        ))}
+      </div>
     </Layout>
   )
 }

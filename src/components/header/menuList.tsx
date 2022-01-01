@@ -1,5 +1,5 @@
 import { MenuItem } from '@material-ui/core'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -32,7 +32,7 @@ const MenuList = React.memo(() => {
     <>
       <Image
         src={session?.user?.image || '/avatar.png'}
-        alt="アバター画像"
+        alt="avatar image"
         width={50}
         height={50}
         className="rounded-full"
@@ -40,7 +40,6 @@ const MenuList = React.memo(() => {
       />
       <Modal isOpenModal={isOpenModal} toggleModal={toggleModal}>
         {session?.user ? (
-          // NOTE: Material-uiのコンポーネント内でfragmentを使うとエラーになる
           <div>
             <MenuItem onClick={handleModalClose}>
               <Link href={`/${session?.user?.customId}`}>
