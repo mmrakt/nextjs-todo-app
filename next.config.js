@@ -19,6 +19,7 @@ module.exports = withBundleAnalyzer({
       'firebasestorage.googleapis.com',
       'lh3.googleusercontent.com',
       'pbs.twimg.com',
+      'avatars.githubusercontent.com',
     ],
   },
   reactStrictMode: false,

@@ -3,7 +3,7 @@ import AddIcon from '@material-ui/icons/Add'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
-import { fbDb } from '../../../functions/firebase'
+import { db } from '../../../functions/firebase'
 import { handleAdd } from '../../modules/todoModule'
 
 function Input(): any {
@@ -15,7 +15,7 @@ function Input(): any {
     if (e.key === 'Enter') {
       dispatch(handleAdd(text))
 
-      fbDb.collection('todos').add({
+      db.collection('todos').add({
         text,
         done: false,
       })

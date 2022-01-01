@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { fbAuth, fbFunc } from '../../../../functions/firebase'
+import { auth, fbFunc } from '../../../../functions/firebase'
 import TextFieldEl from '../../../components/grid/textFieldEl'
 import Layout from '../../../components/layout'
 import { vldRules } from '../../../utils/validationRule'
@@ -62,11 +62,11 @@ function Action(): React.ReactElement {
   }, [])
 
   const onUpdatePassword = (): void => {
-    fbAuth.verifyPasswordResetCode(state.actionCode).then((email) => {
-      fbAuth
+    auth.verifyPasswordResetCode(state.actionCode).then((email) => {
+      auth
         .confirmPasswordReset(state.actionCode, newPassword)
         .then(async () => {
-          await fbAuth.signInWithEmailAndPassword(email, newPassword)
+          await auth.signInWithEmailAndPassword(email, newPassword)
           console.log('送信開始')
           // await sendCompletionEmail
           const mailer = fbFunc.httpsCallable('sendMail')

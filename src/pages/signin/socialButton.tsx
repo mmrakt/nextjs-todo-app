@@ -1,22 +1,27 @@
-import { signIn } from 'next-auth/client'
 import React from 'react'
+import { signIn } from 'next-auth/react'
 
 type IProps = {
   id: string
   name: string
   theme: string
-  hover: string
+  hoverColor: string
 }
 
-function SocialButton(props: IProps): React.ReactElement {
+function SocialButton({
+  id,
+  name,
+  theme,
+  hoverColor,
+}: IProps): React.ReactElement {
   return (
     <button
-      className={`${props.theme} hover:${props.hover} text-white font-bold py-2 px-4 my-2 rounded`}
+      className={`${theme} hover:${hoverColor} text-white font-bold py-2 px-4 my-2 rounded`}
       onClick={() => {
-        signIn(props.id)
+        signIn(id)
       }}
     >
-      {props.name} アカウントでログイン
+      {name} アカウントでログイン
     </button>
   )
 }

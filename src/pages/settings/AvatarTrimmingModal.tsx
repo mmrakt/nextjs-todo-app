@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core'
 import React, { useState, useRef } from 'react'
 import ReactCrop, { Crop } from 'react-image-crop'
 
-import { fbStorage } from '../../../functions/firebase'
+import { storage } from '../../../functions/firebase'
 
 import 'react-image-crop/dist/ReactCrop.css'
 import { defaultCrop, imageCropped } from '../../utils/crop'
@@ -10,7 +10,7 @@ import { formatDateTime } from '../../utils/date'
 
 import Modal from 'react-modal'
 import { useMutation, useQueryClient } from 'react-query'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 
 const modalStyle = {
   overlay: {
@@ -43,7 +43,7 @@ function AvatalTrimmingModal(props: IProps): React.ReactElement {
   const [croppedImageUrl, setCroppedImageUrl] = useState<string>('')
   const [croppedBlob, setCroppedBlob] = useState<Blob>(null)
   const processing = useRef(false)
-  const [session] = useSession()
+  const { data: session } = useSession()
   const queryClient = useQueryClient()
 
   const onImageLoaded = (image: HTMLImageElement) => {
@@ -75,7 +75,7 @@ function AvatalTrimmingModal(props: IProps): React.ReactElement {
     processing.current = true
 
     try {
-      fbStorage
+      storage
         .ref()
         .child(`images/${formatDateTime(new Date())}`)
         .put(croppedBlob)

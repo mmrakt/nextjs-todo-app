@@ -1,30 +1,20 @@
-import { providers, signIn } from 'next-auth/client'
 import React from 'react'
-
 import Layout from '../../components/layout'
-
 import SocialButton from './socialButton'
+import { ClientSafeProvider, getProviders } from 'next-auth/react'
 
-type IProviders = {
-  provider: {
-    id: string
-    name: string
-  }
-}
-type IProps = {
-  props: {
-    providers: () => IProviders[]
-  }
-}
-export async function getStaticProps(): Promise<IProps> {
+export async function getServerSideProps(context) {
+  const providers = await getProviders()
   return {
-    props: {
-      providers: await providers(),
-    },
+    props: { providers },
   }
 }
 
-function SignIn({ providers }: { providers: IProviders }): React.ReactNode {
+function Signin({
+  providers,
+}: {
+  providers: ClientSafeProvider
+}): React.ReactNode {
   return (
     <Layout title="ログイン">
       {Object.values(providers).map((provider) => (
@@ -41,7 +31,7 @@ function SignIn({ providers }: { providers: IProviders }): React.ReactNode {
                 ? 'bg-blue-500'
                 : ''
             }
-            hover={
+            hoverColor={
               provider.name === 'GitHub'
                 ? 'bg-gray-600'
                 : provider.name === 'Google'
@@ -57,4 +47,4 @@ function SignIn({ providers }: { providers: IProviders }): React.ReactNode {
   )
 }
 
-export default SignIn
+export default Signin

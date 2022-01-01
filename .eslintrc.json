@@ -25,6 +25,7 @@
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/no-namespace": "off",
-    "@typescript-eslint/ban-ts-comment": "off"
+    "@typescript-eslint/ban-ts-comment": "off",
+    "react/prop-types": "off"
   }
 }

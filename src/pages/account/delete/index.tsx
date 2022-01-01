@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core'
-import { fbAuth, fbDb } from 'functions/firebase'
+import { auth, db } from 'functions/firebase'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -25,9 +25,8 @@ function DeleteAccount(): React.ReactElement {
   }
 
   const deleteAccountOnFbDB = (): void => {
-    fbDb
-      .collection('users')
-      .doc(fbAuth.currentUser.uid)
+    db.collection('users')
+      .doc(auth.currentUser.uid)
       .delete()
       .catch((error) => {
         console.log(error)
@@ -35,10 +34,10 @@ function DeleteAccount(): React.ReactElement {
   }
 
   const deleteAccountOnFbAuth = (): void => {
-    fbAuth.currentUser.delete().catch((error) => {
+    auth.currentUser.delete().catch((error) => {
       console.log(error)
     })
-    fbAuth.signOut()
+    auth.signOut()
   }
 
   return (

@@ -13,11 +13,12 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 
-import { fbAuth } from '../../../functions/firebase'
 import { AuthContext } from '../../auth/AuthProvider'
 import TextFieldEl from '../../components/grid/textFieldEl'
 import Layout from '../../components/layout'
 import { vldRules } from '../../utils/validationRule'
+import { doc, setDoc } from 'firebase/firestore'
+import { db } from 'functions/firebase'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -79,10 +80,17 @@ function Signup(): React.ReactElement {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const { user } = userCredential
+        createUser(user)
       })
       .catch((error) => {
         console.log(error)
       })
+  }
+
+  const createUser = async (user) => {
+    await setDoc(doc(db, 'users', user.uid), {
+      email: user.email,
+    })
   }
 
   return (

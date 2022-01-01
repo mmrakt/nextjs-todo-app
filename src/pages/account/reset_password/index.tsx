@@ -5,7 +5,7 @@ import {
   makeStyles,
   Container,
 } from '@material-ui/core'
-import { fbAuth } from 'functions/firebase'
+import { auth } from 'functions/firebase'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -37,7 +37,7 @@ function ResetPassword(): React.ReactElement {
   const onResetPassword = async (): Promise<void> => {
     try {
       setLoading(true)
-      fbAuth.sendPasswordResetEmail(email)
+      auth.sendPasswordResetEmail(email)
       setTimeout(() => {
         router.push({
           pathname: '/account/reset_password/complete',

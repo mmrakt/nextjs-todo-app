@@ -1,13 +1,14 @@
 import { MenuItem } from '@material-ui/core'
-import { signIn, signOut, useSession } from 'next-auth/client'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 import Modal from '../Modal'
+import Router from 'next/router'
 
 const MenuList = React.memo(() => {
-  const [session]: any = useSession()
+  const { data: session }: any = useSession()
   const [isOpenModal, toggleModal] = React.useState(null)
 
   const handleModalOpen = (e) => {
@@ -23,7 +24,7 @@ const MenuList = React.memo(() => {
   const handleSignout = (event) => {
     event.preventDefault()
     signOut({
-      callbackUrl: 'http://localhost:3000/signin',
+      callbackUrl: Router.basePath,
     })
   }
 

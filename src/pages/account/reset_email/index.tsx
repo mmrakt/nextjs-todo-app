@@ -1,6 +1,6 @@
 import { CssBaseline, Grid, Container } from '@material-ui/core'
-import { firebase, fbAuth, fbDb } from 'functions/firebase'
-import { useSession } from 'next-auth/client'
+import { app, auth, db } from 'functions/firebase'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -12,7 +12,7 @@ import Layout from '../../../components/layout'
 import { vldRules } from '../../../utils/validationRule'
 
 function ResetEmail(): React.ReactElement {
-  const [session] = useSession()
+  const { data: session } = useSession()
   const router = useRouter()
   const [newEmail, setNewEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -29,7 +29,7 @@ function ResetEmail(): React.ReactElement {
       console.log(event.target[0].value)
       await reauthenticateWithCredential(event.target[0].value)
       await updateAccountEmailOnFbDB()
-      fbAuth.currentUser.sendEmailVerification()
+      auth.currentUser.sendEmailVerification()
       setTimeout(() => {
         router.push('/account/reset_email/complete')
       }, 2000)
@@ -41,25 +41,24 @@ function ResetEmail(): React.ReactElement {
   const reauthenticateWithCredential = async (
     oldEmail: string
   ): Promise<void> => {
-    fbAuth.currentUser
+    auth.currentUser
       .reauthenticateWithCredential(fetchCredential(oldEmail))
       .then(() => {
         console.log('再認証成功！')
-        fbAuth.currentUser.updateEmail(newEmail)
+        auth.currentUser.updateEmail(newEmail)
       })
       .catch((error) => {
         console.log(error)
       })
       .finally(() => {
-        fbAuth.currentUser.getIdToken(true)
+        auth.currentUser.getIdToken(true)
       })
   }
   const fetchCredential = (oldEmail: string) =>
     firebase.auth.EmailAuthProvider.credential(oldEmail, password)
   const updateAccountEmailOnFbDB = async (): Promise<void> => {
-    fbDb
-      .collection('users')
-      .doc(fbAuth.currentUser.uid)
+    db.collection('users')
+      .doc(auth.currentUser.uid)
       .set(
         {
           email: newEmail,

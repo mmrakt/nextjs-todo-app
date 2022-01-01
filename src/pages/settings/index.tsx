@@ -15,7 +15,7 @@ import AvatalTrimmingModal from './AvatarTrimmingModal'
 import { vldRules } from '@/utils/validationRule'
 
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 
 const AvatarImg = styled.img`
   border-radius: 50%;
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Settings(): React.ReactElement {
   const classes = useStyles()
-  const [session] = useSession()
+  const { data: session } = useSession()
   const [editedUserName, setEditedUserName] = useState('')
   const [editedProfile, setEditedProfile] = useState('')
   const [src, setSrc] = useState<any>(null)

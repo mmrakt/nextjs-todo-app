@@ -1,10 +1,10 @@
+import React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
-import { Provider as NextAuthProvider } from 'next-auth/client'
+import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import NextNprogress from 'nextjs-progressbar'
-import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
 
@@ -17,14 +17,13 @@ import 'react-calendar/dist/Calendar.css'
 import 'react-toastify/dist/ReactToastify.css'
 
 import '../../styles/globals.css'
+import 'tailwindcss/tailwind.css'
 
 export const AuthContext = React.createContext(null)
 
 const queryClient = new QueryClient()
 
-function MyApp(props: AppProps) {
-  const { Component, pageProps } = props
-
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   React.useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
@@ -46,11 +45,10 @@ function MyApp(props: AppProps) {
           <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={theme}>
               <CssBaseline />
-
-              <NextAuthProvider session={pageProps.session}>
+              <SessionProvider session={session}>
                 <NextNprogress />
                 <Component {...pageProps} />
-              </NextAuthProvider>
+              </SessionProvider>
             </ThemeProvider>
           </QueryClientProvider>
         </AuthProvider>

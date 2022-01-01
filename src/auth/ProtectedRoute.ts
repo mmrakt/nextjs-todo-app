@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 
@@ -10,7 +10,7 @@ type IProps = {
 const ProtectedRoute: any = (props: IProps) => {
   const { children } = props
   const router = useRouter()
-  const [session] = useSession()
+  const { data: session } = useSession()
 
   if (!session) {
     if (typeof window !== 'undefined' && session !== undefined) {
