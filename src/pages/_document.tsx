@@ -1,8 +1,8 @@
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/styles'
 import Document, {
   DocumentContext,
-  Html,
   Head,
+  Html,
   Main,
   NextScript,
 } from 'next/document'

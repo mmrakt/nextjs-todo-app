@@ -1,9 +1,9 @@
 const fs = require('fs')
+const http = require('http')
 
 const firebase = require('@firebase/rules-unit-testing')
 
 const PROJECT_ID = 'nextjs-app-bfac0'
-const http = require('http')
 
 const COVERAGE_URL =
   'http://localhost:8080/emulator/v1/projects/nextjs-app-bfac0:ruleCoverage.html'

@@ -1,7 +1,9 @@
-import React from 'react'
-import Layout from '../../components/layout'
-import SocialButton from './socialButton'
 import { ClientSafeProvider, getProviders } from 'next-auth/react'
+import React from 'react'
+
+import Layout from '../../components/layout'
+
+import SocialButton from './socialButton'
 
 export async function getServerSideProps(context) {
   const providers = await getProviders()

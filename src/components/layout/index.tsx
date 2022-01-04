@@ -1,6 +1,7 @@
-import Header from '../header/index'
 import Router from 'next/router'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+
+import Header from '../header/index'
 
 type LayoutProps = {
   children: React.ReactNode

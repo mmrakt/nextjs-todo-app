@@ -1,5 +1,5 @@
-import React from 'react'
 import { signIn } from 'next-auth/react'
+import React from 'react'
 
 type IProps = {
   id: string
@@ -21,7 +21,9 @@ function SocialButton({
         signIn(id)
       }}
     >
-      {name} アカウントでログイン
+      {name}
+      {' '}
+      アカウントでログイン
     </button>
   )
 }

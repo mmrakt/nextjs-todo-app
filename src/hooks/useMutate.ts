@@ -1,4 +1,4 @@
-import { useQueryClient, useMutation, UseMutationResult } from 'react-query'
+import { UseMutationResult, useMutation, useQueryClient } from 'react-query'
 
 type IProps = {
   path: string

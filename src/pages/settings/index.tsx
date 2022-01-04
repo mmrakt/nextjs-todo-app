@@ -1,4 +1,4 @@
-import { CssBaseline, Grid, makeStyles, Container } from '@material-ui/core'
+import { Container, CssBaseline, Grid, makeStyles } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
@@ -9,10 +9,9 @@ import TextFieldEl from '../../components/grid/textFieldEl'
 import Layout from '../../components/layout'
 import 'react-image-crop/dist/ReactCrop.css'
 import { useMutate } from '../../hooks/useMutate'
+import { vldRules } from '../../utils/validationRule'
 
 import AvatalTrimmingModal from './AvatarTrimmingModal'
-
-import { vldRules } from '@/utils/validationRule'
 
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'

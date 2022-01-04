@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
 import { Container } from '@material-ui/core'
-import Filter from '@/components/todo/Filter'
-import Input from '@/components/todo/Input'
-import TodoTabPanel from '@/components/todo/TabPanel'
-import Router from 'next/router'
 import { useSession } from 'next-auth/react'
+import Router from 'next/router'
+import React, { useEffect, useState } from 'react'
+
+import Filter from './Filter'
+import Input from './Input'
+import TodoTabPanel from './TabPanel'
 
 function TodoContainer(): React.ReactElement {
   const statuses = ['ALL', 'TODO', 'DONE']
