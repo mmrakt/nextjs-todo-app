@@ -1,4 +1,6 @@
 import { Container, CssBaseline, Grid, makeStyles } from '@material-ui/core'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
@@ -12,9 +14,6 @@ import { useMutate } from '../../hooks/useMutate'
 import { vldRules } from '../../utils/validationRule'
 
 import AvatalTrimmingModal from './AvatarTrimmingModal'
-
-import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
 
 const AvatarImg = styled.img`
   border-radius: 50%;

@@ -12,7 +12,6 @@ type Props = {
 function TodoTabPanel(props: Props): any {
   const { status } = props
   const { todos, filter } = useSelector((state: rootState) => state.todos)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const displayTodos = todos.filter((todo) => {
     if (todo) {
       switch (filter) {

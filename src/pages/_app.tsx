@@ -7,16 +7,14 @@ import Head from 'next/head'
 import NextNprogress from 'nextjs-progressbar'
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import 'react-calendar/dist/Calendar.css'
 import { Provider } from 'react-redux'
 
 import theme from '../components/theme'
 import store from '../store/store'
 import 'minireset.css'
-
 import '../base.css'
-import 'react-calendar/dist/Calendar.css'
 import 'react-toastify/dist/ReactToastify.css'
-
 import '../../styles/globals.css'
 import 'tailwindcss/tailwind.css'
 

@@ -38,3 +38,5 @@ yarn-error.log*
 *.tsbuildinfo
 
 nextjs-app*.json
+
+*_backup*

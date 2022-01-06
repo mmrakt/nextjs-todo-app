@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const formatDate = (date: any): any => {
   const year = date.getFullYear()
   let month = date.getMonth() + 1
