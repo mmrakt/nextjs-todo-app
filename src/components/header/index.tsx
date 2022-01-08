@@ -24,7 +24,7 @@ const Header = React.memo(() => (
       <ToggleMenu />
     </div>
   </div>
-  ))
+))
 
 Header.displayName = 'Header'
 

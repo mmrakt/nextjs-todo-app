@@ -12,13 +12,12 @@ import { Provider } from 'react-redux'
 
 import theme from '../components/theme'
 import store from '../store/store'
+import chakuraUiTheme from '../theme/chakraUiTheme'
 import 'minireset.css'
 import '../base.css'
 import 'react-toastify/dist/ReactToastify.css'
 import '../../styles/globals.css'
 import 'tailwindcss/tailwind.css'
-
-import chakuraUiTheme from '../theme/chakraUiTheme'
 
 export const AuthContext = React.createContext(null)
 

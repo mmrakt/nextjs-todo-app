@@ -21,9 +21,7 @@ function SocialButton({
         signIn(id)
       }}
     >
-      {name}
-      {' '}
-      アカウントでログイン
+      {name} アカウントでログイン
     </button>
   )
 }

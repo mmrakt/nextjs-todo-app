@@ -10,7 +10,7 @@ const StyledMenuItem: FC<MenuItemProps> = ({ children }) => (
   <MenuItem bg="dark.gray" _hover={{ background: 'dark.lightGray' }}>
     {children}
   </MenuItem>
-  )
+)
 
 const ToggleMenu = React.memo(() => {
   const { data: session }: any = useSession()
@@ -25,7 +25,7 @@ const ToggleMenu = React.memo(() => {
     <Menu autoSelect={false}>
       <MenuButton
         as={Avatar}
-        icon={(
+        icon={
           <Image
             src={session?.user?.image || '/avatar.png'}
             alt="avatar image"
@@ -33,7 +33,7 @@ const ToggleMenu = React.memo(() => {
             height={50}
             className="rounded-full"
           />
-        )}
+        }
       />
       <MenuList bg="dark.gray" borderColor="dark.lightGray">
         {session?.user ? (
