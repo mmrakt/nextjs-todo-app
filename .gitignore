@@ -40,3 +40,5 @@ yarn-error.log*
 nextjs-app*.json
 
 *_backup*
+
+.vscode/*

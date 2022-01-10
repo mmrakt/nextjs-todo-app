@@ -1,12 +1,14 @@
-import { Firestore } from '@google-cloud/firestore'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import { PrismaClient } from '@prisma/client'
 import NextAuth from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import TwitterProvider from 'next-auth/providers/twitter'
 
-const firestore = new Firestore()
+const prisma = new PrismaClient()
 
 export default NextAuth({
+  adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID,
@@ -25,22 +27,4 @@ export default NextAuth({
     signIn: '/signin',
   },
   secret: process.env.SECRET,
-  callbacks: {
-    async signIn({ user }) {
-      const document = firestore.doc(`users/${user.id}`)
-      await document.set({
-        email: user.email,
-      })
-      return true
-    },
-    async redirect({ url, baseUrl }) {
-      return baseUrl
-    },
-    async session({ session, user, token }) {
-      return session
-    },
-    async jwt({ token, user, account, profile, isNewUser }) {
-      return token
-    },
-  },
 })
