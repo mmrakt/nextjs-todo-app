@@ -1,4 +1,5 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
      match /users/{userId} {
@@ -6,6 +7,9 @@ service cloud.firestore {
       allow create: if request.auth != null;
       allow update: if request.auth.uid == userId;
       allow delete: if request.auth.uid == userId;
+     }
+     match /todos/{todo} {
+      allow read, write: if true;
      }
   }
 }

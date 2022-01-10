@@ -3,9 +3,8 @@ import { useSession } from 'next-auth/react'
 import Router from 'next/router'
 import React, { useEffect, useState } from 'react'
 
-import Filter from './Filter'
-import Input from './Input'
-import TodoTabPanel from './TabPanel'
+import InputText from './InputText'
+import List from './List'
 
 function TodoContainer(): React.ReactElement {
   const statuses = ['ALL', 'TODO', 'DONE']
@@ -23,10 +22,9 @@ function TodoContainer(): React.ReactElement {
 
   return (
     <Container maxWidth="sm">
-      <Input />
-      <Filter />
+      <InputText />
       {statuses.map((status, index) => (
-        <TodoTabPanel key={index} status={status} />
+        <List key={index} status={status} />
       ))}
     </Container>
   )
