@@ -4,14 +4,15 @@ import Divider from '@material-ui/core/Divider'
 import React from 'react'
 
 type IProps = {
-  text: string
+  content: string
   done: boolean
 }
-function Item({ text, done }: IProps): any {
+
+function Item({ content, done }: IProps): any {
   return (
     <>
       <ListItem>
-        <Checkbox isChecked={done}>{text}</Checkbox>
+        <Checkbox isChecked={done}>{content}</Checkbox>
       </ListItem>
       <Divider />
     </>

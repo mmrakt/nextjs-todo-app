@@ -7,7 +7,6 @@ import InputText from './InputText'
 import List from './List'
 
 function TodoContainer(): React.ReactElement {
-  const statuses = ['ALL', 'TODO', 'DONE']
   const [checked, setChecked] = useState(false)
   const { data: session, status } = useSession()
   useEffect(() => {
@@ -23,9 +22,7 @@ function TodoContainer(): React.ReactElement {
   return (
     <Container maxWidth="sm">
       <InputText />
-      {statuses.map((status, index) => (
-        <List key={index} status={status} />
-      ))}
+      <List />
     </Container>
   )
 }

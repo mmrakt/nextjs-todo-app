@@ -8,7 +8,7 @@ import { rootState } from '../../rootReducer'
 
 function Filter(): any {
   const dispatch = useDispatch()
-  const filter = useSelector((state: rootState) => state.todos.filter)
+  const filter = useSelector((state: rootState) => state.tasks.filter)
   const handleChange = (event, newValue) => {
     dispatch(handleFilterChange(newValue))
   }

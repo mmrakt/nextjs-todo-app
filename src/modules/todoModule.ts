@@ -3,12 +3,12 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Todo } from '../Types'
 
 type State = {
-  todos: Todo[]
+  tasks: Todo[]
   filter: string
 }
 
 const initialState: State = {
-  todos: [
+  tasks: [
     {
       key: 'test1',
       text: 'test1',
@@ -19,7 +19,7 @@ const initialState: State = {
 }
 
 const todoModule = createSlice({
-  name: 'todos',
+  name: 'tasks',
   initialState,
   // reducers
   reducers: {
@@ -31,19 +31,19 @@ const todoModule = createSlice({
         text: action.payload,
         done: false,
       }
-      state.todos = [newTodo, ...state.todos]
+      state.tasks = [newTodo, ...state.tasks]
     },
     handleFilterChange(state: State, action: PayloadAction<string>) {
       state.filter = action.payload
     },
     handleCheck(state: State, action: PayloadAction<Todo>) {
-      const todo = state.todos.find((todo) => todo.key === action.payload.key)
-      if (todo) {
-        todo.done = !todo.done
+      const task = state.tasks.find((task) => task.key === action.payload.key)
+      if (task) {
+        task.done = !task.done
       }
     },
     handleDelete(state: State, action: PayloadAction<Todo>) {
-      state.todos.filter((todo) => todo.key !== action.payload.key)
+      state.tasks.filter((task) => task.key !== action.payload.key)
     },
   },
 })
