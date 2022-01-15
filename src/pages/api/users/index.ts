@@ -6,10 +6,13 @@ const handler = async (
   res: NextApiResponse
 ): Promise<void> => {
   if (req.method === 'GET') {
-    const user = await prisma.user.findFirst({
-      where: { id: Number(req.query.id) },
-    })
-    return res.status(200).json(user)
+    const users = await prisma.user.findMany()
+
+    if (users) {
+      res.status(200).json(users)
+    } else {
+      res.status(400).json({ debugMessage: 'There was no one...' })
+    }
   }
 }
 

@@ -22,7 +22,9 @@ function TodoContainer(): React.ReactElement {
   return (
     <Container maxWidth="sm">
       <InputText />
-      <List />
+      <div className="mt-10">
+        <List />
+      </div>
     </Container>
   )
 }

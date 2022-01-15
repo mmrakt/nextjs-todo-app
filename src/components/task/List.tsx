@@ -6,15 +6,19 @@ import Item from './Item'
 
 function List(): any {
   const { data: tasks, isLoading } = useQuery<Task[]>('tasks', async () => {
-    const res = await fetch('/api/task/fetchList')
+    const res = await fetch('/api/tasks')
     return res.json()
   })
 
   if (isLoading) return <span>Loading...</span>
 
+  const incompletedTasks = tasks.filter((task) => {
+    return !task.done
+  })
+
   return (
     <ChakraUiList>
-      {tasks.map((task, index) => (
+      {incompletedTasks.map((task, index) => (
         <Item data-testid="todoItem" key={index} {...task} />
       ))}
     </ChakraUiList>

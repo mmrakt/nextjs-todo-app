@@ -15,6 +15,8 @@ module.exports = {
     screens: {
       pc: '980px',
     },
+    fill: (theme) => theme('colors'),
+    stroke: (theme) => theme('colors'),
   },
   variants: {
     extend: {

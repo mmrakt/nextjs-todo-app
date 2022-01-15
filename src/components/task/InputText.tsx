@@ -7,9 +7,10 @@ function InputText(): any {
   const [content, setContent] = React.useState('')
   const { data: session, status } = useSession()
 
-  const handleChange = (e) => setContent(e.target.value)
-  const handleKeyDown = async (e) => {
-    if (e.key === 'Enter') {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setContent(e.target.value)
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !(e.nativeEvent as any).isComposing) {
       mutate()
       setContent('')
     }
@@ -18,7 +19,7 @@ function InputText(): any {
   const userId = session.userId
 
   const { mutate } = useMutate({
-    path: '/api/task/create',
+    path: '/api/tasks',
     method: 'POST',
     body: JSON.stringify({
       content,
