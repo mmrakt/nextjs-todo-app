@@ -19,6 +19,7 @@
     "fb:emulate": "firebase emulators:start"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^1.1.1",
     "@date-io/date-fns": "^2.10.6",
     "@firebase/rules-unit-testing": "^1.1.6",
     "@google-cloud/firestore": "^5.0.1",

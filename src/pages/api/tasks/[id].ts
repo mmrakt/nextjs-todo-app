@@ -19,7 +19,6 @@ const handler = async (
       }
       break
     case 'PATCH':
-      console.log('hoge')
       try {
         const id = Number(req.query.id)
         await prisma.task.update({ where: { id }, data: { done: true } })
@@ -33,6 +32,22 @@ const handler = async (
           error,
         })
       }
+      break
+    case 'DELETE':
+      try {
+        const id = Number(req.query.id)
+        await prisma.task.delete({ where: { id } })
+        res.json({
+          ok: true,
+        })
+        return
+      } catch (error) {
+        res.json({
+          ok: false,
+          error,
+        })
+      }
+      break
   }
 }
 
