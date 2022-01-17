@@ -10,13 +10,17 @@ function InputText(): any {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setContent(e.target.value)
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && !(e.nativeEvent as any).isComposing) {
+    if (
+      e.key === 'Enter' &&
+      content !== '' &&
+      !(e.nativeEvent as any).isComposing
+    ) {
       mutate()
       setContent('')
     }
   }
 
-  const userId = session.userId
+  const userId = session?.userId
 
   const { mutate } = useMutate({
     path: '/api/tasks',

@@ -21,7 +21,8 @@ const handler = async (
     case 'PATCH':
       try {
         const id = Number(req.query.id)
-        await prisma.task.update({ where: { id }, data: { done: true } })
+        const value = JSON.parse(req.body)
+        await prisma.task.update({ where: { id }, data: value })
         res.json({
           ok: true,
         })

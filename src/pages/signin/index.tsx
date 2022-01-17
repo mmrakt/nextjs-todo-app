@@ -1,4 +1,5 @@
-import { ClientSafeProvider, getProviders } from 'next-auth/react'
+import { ClientSafeProvider, getProviders, useSession } from 'next-auth/react'
+import Router from 'next/router'
 import React from 'react'
 
 import Layout from '../../components/layout'
@@ -17,6 +18,16 @@ function Signin({
 }: {
   providers: ClientSafeProvider
 }): React.ReactNode {
+  const [checked, setChecked] = React.useState(false)
+  const { data: session, status } = useSession()
+  React.useEffect(() => {
+    if (status === 'authenticated') {
+      Router.push('/')
+    }
+  }, [status])
+
+  if (!checked) return null
+
   return (
     <Layout title="ログイン">
       <div className="text-center">

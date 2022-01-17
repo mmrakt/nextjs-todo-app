@@ -7,8 +7,13 @@ const handler = async (
 ): Promise<void> => {
   if (req.method === 'GET') {
     const tasks = await prisma.task.findMany({
+      where: {
+        done: {
+          equals: false,
+        },
+      },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: 'asc',
       },
     })
 

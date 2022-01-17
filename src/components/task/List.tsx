@@ -12,13 +12,9 @@ function List(): any {
 
   if (isLoading) return <span>Loading...</span>
 
-  const incompletedTasks = tasks.filter((task) => {
-    return !task.done
-  })
-
   return (
     <ChakraUiList>
-      {incompletedTasks.map((task, index) => (
+      {tasks.map((task, index) => (
         <Item data-testid="todoItem" key={index} {...task} />
       ))}
     </ChakraUiList>
