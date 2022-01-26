@@ -5,11 +5,12 @@ import { useMutate } from '../../hooks/useMutate'
 import Button from '../Button'
 
 type IProps = {
-  id: Number
+  id: number
   content: string
+  done: boolean
 }
 
-function Item({ id, content }: IProps): any {
+function Row({ id, content, done }: IProps): any {
   const [isEditing, setIsEditing] = React.useState(false)
   const [editingContent, setEditingContent] = React.useState(content)
 
@@ -44,7 +45,7 @@ function Item({ id, content }: IProps): any {
     path: `api/tasks/${id}`,
     method: 'PATCH',
     body: JSON.stringify({
-      done: true,
+      done: !done,
     }),
     key: 'tasks',
   })
@@ -58,10 +59,16 @@ function Item({ id, content }: IProps): any {
     key: 'tasks',
   })
 
-  const { mutate: deleteMutate } = useMutate({
+  const { mutate: deleteUncompletedMutate } = useMutate({
     path: `api/tasks/${id}`,
     method: 'DELETE',
     key: 'tasks',
+  })
+
+  const { mutate: deleteCompletedMutate } = useMutate({
+    path: `api/tasks/${id}`,
+    method: 'DELETE',
+    key: 'completedTasks',
   })
 
   return (
@@ -93,41 +100,69 @@ function Item({ id, content }: IProps): any {
             </>
           ) : (
             <>
-              <button
-                type="button"
-                className="focus:ring"
-                onClick={() => {
-                  updateStatusMutate()
-                }}
-              >
-                <svg
-                  className="max-w-full w-6 inline"
-                  viewBox="0 0 100 100"
-                  xmlns="http://www.w3.org/2000/svg"
-                  version="1.1"
-                >
-                  <circle
-                    className="fill-dark-black stroke-slate-300 transition delay-50 hover:fill-dark-gray active:fill-dark-lightGray"
-                    strokeWidth="4"
-                    cx="50"
-                    cy="50"
-                    r="48"
-                  ></circle>
-                </svg>
-              </button>
-              <div
-                className="ml-3 text-xl w-full"
-                onClick={() => {
-                  handleToggleInput()
-                }}
-              >
-                {content}
-              </div>
+              {done ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      updateStatusMutate()
+                    }}
+                  >
+                    <div className="rounded-[50%] bg-neutral-600 border-neutral-300 border-[1px] border-solid">
+                      <svg
+                        className="w-6 h-6"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          className="stroke-slate-300 stroke-1"
+                          d="M11.23 13.7l-2.15-2a.55.55 0 0 0-.74-.01l.03-.03a.46.46 0 0 0 0 .68L11.24 15l5.4-5.01a.45.45 0 0 0 0-.68l.02.03a.55.55 0 0 0-.73 0l-4.7 4.35z"
+                        />
+                      </svg>
+                    </div>
+                  </button>
+                  <div
+                    className="ml-3 text-xl w-full"
+                    onClick={() => {
+                      handleToggleInput()
+                    }}
+                  >
+                    <span className="line-through text-neutral-500">
+                      {content}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      updateStatusMutate()
+                    }}
+                  >
+                    <div className="rounded-[50%] bg-dark-black border-neutral-300 border-[1px] border-solid">
+                      <svg
+                        className="w-6 h-6"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M11.23 13.7l-2.15-2a.55.55 0 0 0-.74-.01l.03-.03a.46.46 0 0 0 0 .68L11.24 15l5.4-5.01a.45.45 0 0 0 0-.68l.02.03a.55.55 0 0 0-.73 0l-4.7 4.35z" />
+                      </svg>
+                    </div>
+                  </button>
+                  <div
+                    className="ml-3 text-xl w-full"
+                    onClick={() => {
+                      handleToggleInput()
+                    }}
+                  >
+                    {content}
+                  </div>
+                </>
+              )}
               <button
                 type="button"
                 className="hover:bg-neutral-600"
                 onClick={() => {
-                  deleteMutate()
+                  done ? deleteCompletedMutate() : deleteUncompletedMutate()
                 }}
               >
                 <DeleteIcon className="p-1" boxSize={6} />
@@ -141,4 +176,4 @@ function Item({ id, content }: IProps): any {
   )
 }
 
-export default Item
+export default Row

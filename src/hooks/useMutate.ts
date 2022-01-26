@@ -1,10 +1,11 @@
 import { UseMutationResult, useMutation, useQueryClient } from 'react-query'
+import { QueryKeysTypes } from '../constants/queryKeys'
 
 type IProps = {
   path: string
   method: string
   body?: string
-  key: string
+  key: QueryKeysTypes
 }
 export const useMutate = (
   props: IProps

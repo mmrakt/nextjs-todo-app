@@ -8,10 +8,8 @@ import NextNprogress from 'nextjs-progressbar'
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import 'react-calendar/dist/Calendar.css'
-import { Provider } from 'react-redux'
 
 import theme from '../components/theme'
-import store from '../store/store'
 import chakuraUiTheme from '../theme/chakraUiTheme'
 import 'minireset.css'
 import '../base.css'
@@ -40,19 +38,17 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider theme={theme}>
-            <ChakraProvider theme={chakuraUiTheme}>
-              <CssBaseline />
-              <SessionProvider session={session}>
-                <NextNprogress />
-                <Component {...pageProps} />
-              </SessionProvider>
-            </ChakraProvider>
-          </ThemeProvider>
-        </QueryClientProvider>
-      </Provider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <ChakraProvider theme={chakuraUiTheme}>
+            <CssBaseline />
+            <SessionProvider session={session}>
+              <NextNprogress />
+              <Component {...pageProps} />
+            </SessionProvider>
+          </ChakraProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
     </>
   )
 }

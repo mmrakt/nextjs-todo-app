@@ -2,7 +2,7 @@ import { List as ChakraUiList } from '@chakra-ui/react'
 import { Task } from '@prisma/client'
 import React from 'react'
 import { useQuery } from 'react-query'
-import Item from './Item'
+import Row from './Row'
 
 function List(): any {
   const { data: tasks, isLoading } = useQuery<Task[]>('tasks', async () => {
@@ -15,7 +15,7 @@ function List(): any {
   return (
     <ChakraUiList>
       {tasks.map((task, index) => (
-        <Item data-testid="todoItem" key={index} {...task} />
+        <Row data-testid="todoItem" key={index} {...task} />
       ))}
     </ChakraUiList>
   )
