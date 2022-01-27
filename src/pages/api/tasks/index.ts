@@ -6,12 +6,16 @@ const handler = async (
   res: NextApiResponse
 ): Promise<void> => {
   if (req.method === 'GET') {
-    const status = Number(req.query.status)
-    const isCompleted = status === 1 ? true : false
+    const statusNum = Number(req.query.status)
+    const status = statusNum === 1 ? true : false
+    const userId = String(req.query.userId)
     const tasks = await prisma.task.findMany({
       where: {
         done: {
-          equals: isCompleted,
+          equals: status,
+        },
+        userId: {
+          equals: userId,
         },
       },
       orderBy: {

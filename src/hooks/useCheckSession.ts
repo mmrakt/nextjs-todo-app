@@ -11,9 +11,18 @@ function useCheckSession() {
     } else if (status === 'unauthenticated') {
       Router.push('/signin')
     }
-  }, [status])
+  }, [status, session])
 
-  if (!checked) return null
+  if (!checked)
+    return {
+      authStatus: false,
+      userId: '',
+    }
+
+  return {
+    authStatus: true,
+    userId: session.user.id,
+  }
 }
 
 export default useCheckSession

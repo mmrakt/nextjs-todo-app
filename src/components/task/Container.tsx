@@ -7,13 +7,14 @@ import InputText from './InputText'
 import List from './List'
 
 function TodoContainer(): React.ReactElement {
-  useCheckSession()
+  const { authStatus, userId } = useCheckSession()
+  if (authStatus === false) return null
 
   return (
     <Container maxWidth="sm">
       <InputText />
       <div className="mt-10">
-        <List />
+        <List userId={userId} />
       </div>
       <div className="mt-10">
         <CompletedList />

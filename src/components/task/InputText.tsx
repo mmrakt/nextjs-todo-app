@@ -20,7 +20,7 @@ function InputText(): any {
     }
   }
 
-  const userId = session?.userId
+  const userId = session?.user.id
 
   const { mutate } = useMutate({
     path: '/api/tasks',

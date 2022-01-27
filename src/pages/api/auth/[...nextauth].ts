@@ -29,7 +29,7 @@ export default NextAuth({
   secret: process.env.SECRET,
   callbacks: {
     async session({ session, user, token }) {
-      session.userId = user.id
+      session.user.id = user.id
       return Promise.resolve(session)
     },
   },

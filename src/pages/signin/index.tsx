@@ -18,15 +18,12 @@ function Signin({
 }: {
   providers: ClientSafeProvider
 }): React.ReactNode {
-  const [checked, setChecked] = React.useState(false)
   const { data: session, status } = useSession()
   React.useEffect(() => {
     if (status === 'authenticated') {
       Router.push('/')
     }
   }, [status])
-
-  if (!checked) return null
 
   return (
     <Layout title="ログイン">
