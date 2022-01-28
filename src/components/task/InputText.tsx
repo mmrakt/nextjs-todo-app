@@ -29,7 +29,7 @@ function InputText(): any {
       content,
       userId,
     }),
-    key: 'tasks',
+    keys: 'tasks',
   })
 
   return (

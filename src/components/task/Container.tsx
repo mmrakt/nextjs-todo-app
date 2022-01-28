@@ -17,7 +17,7 @@ function TodoContainer(): React.ReactElement {
         <List userId={userId} />
       </div>
       <div className="mt-10">
-        <CompletedList />
+        <CompletedList userId={userId} />
       </div>
     </Container>
   )

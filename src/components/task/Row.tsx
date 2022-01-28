@@ -7,10 +7,10 @@ import Button from '../Button'
 type IProps = {
   id: number
   content: string
-  done: boolean
+  isCompleted: boolean
 }
 
-function Row({ id, content, done }: IProps): any {
+function Row({ id, content, isCompleted }: IProps): any {
   const [isEditing, setIsEditing] = React.useState(false)
   const [editingContent, setEditingContent] = React.useState(content)
 
@@ -45,9 +45,9 @@ function Row({ id, content, done }: IProps): any {
     path: `api/tasks/${id}`,
     method: 'PATCH',
     body: JSON.stringify({
-      done: !done,
+      isCompleted: !isCompleted,
     }),
-    key: 'tasks',
+    keys: ['tasks', 'completedTasks'],
   })
 
   const { mutate: updateContentMutate } = useMutate({
@@ -56,19 +56,19 @@ function Row({ id, content, done }: IProps): any {
     body: JSON.stringify({
       content: editingContent,
     }),
-    key: 'tasks',
+    keys: 'tasks',
   })
 
   const { mutate: deleteUncompletedMutate } = useMutate({
     path: `api/tasks/${id}`,
     method: 'DELETE',
-    key: 'tasks',
+    keys: 'tasks',
   })
 
   const { mutate: deleteCompletedMutate } = useMutate({
     path: `api/tasks/${id}`,
     method: 'DELETE',
-    key: 'completedTasks',
+    keys: 'completedTasks',
   })
 
   return (
@@ -100,7 +100,7 @@ function Row({ id, content, done }: IProps): any {
             </>
           ) : (
             <>
-              {done ? (
+              {isCompleted ? (
                 <>
                   <button
                     type="button"
@@ -162,7 +162,9 @@ function Row({ id, content, done }: IProps): any {
                 type="button"
                 className="hover:bg-neutral-600"
                 onClick={() => {
-                  done ? deleteCompletedMutate() : deleteUncompletedMutate()
+                  isCompleted
+                    ? deleteCompletedMutate()
+                    : deleteUncompletedMutate()
                 }}
               >
                 <DeleteIcon className="p-1" boxSize={6} />

@@ -5,21 +5,29 @@ type IProps = {
   path: string
   method: string
   body?: string
-  key: QueryKeysTypes
+  keys: QueryKeysTypes[] | QueryKeysTypes
 }
-export const useMutate = (
-  props: IProps
-): UseMutationResult<Response, unknown, void, unknown> => {
+export const useMutate = ({
+  path,
+  method,
+  body,
+  keys,
+}: IProps): UseMutationResult<Response, unknown, void, unknown> => {
   const queryClient = useQueryClient()
   return useMutation(
     () =>
-      fetch(props.path, {
-        method: props.method,
-        body: props.body,
+      fetch(path, {
+        method: method,
+        body: body,
       }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(props.key)
+        if (!Array.isArray(keys)) {
+          keys = [keys]
+        }
+        keys.forEach((key) => {
+          queryClient.invalidateQueries(key)
+        })
       },
     }
   )

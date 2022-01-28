@@ -21,7 +21,7 @@ function SocialButton({
         signIn(id)
       }}
     >
-      {name} アカウントでログイン
+      Sign in with {name}
     </button>
   )
 }

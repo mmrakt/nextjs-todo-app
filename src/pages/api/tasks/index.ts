@@ -11,7 +11,7 @@ const handler = async (
     const userId = String(req.query.userId)
     const tasks = await prisma.task.findMany({
       where: {
-        done: {
+        isCompleted: {
           equals: status,
         },
         userId: {
