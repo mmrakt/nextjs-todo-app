@@ -1,6 +1,10 @@
+import path from 'path'
 import { DeleteIcon } from '@chakra-ui/icons'
 import { ListItem, Input, Stack } from '@chakra-ui/react'
+import { keys } from '@material-ui/core/styles/createBreakpoints'
+import dayjs from 'dayjs'
 import React from 'react'
+import { useQueryClient, useMutation } from 'react-query'
 import { useMutate } from '../../hooks/useMutate'
 import Button from '../Button'
 
@@ -13,6 +17,7 @@ type IProps = {
 function Row({ id, content, isCompleted }: IProps): any {
   const [isEditing, setIsEditing] = React.useState(false)
   const [editingContent, setEditingContent] = React.useState(content)
+  const queryClient = useQueryClient()
 
   const handleToggleInput = () => {
     setIsEditing(isEditing ? false : true)
@@ -35,20 +40,34 @@ function Row({ id, content, isCompleted }: IProps): any {
     }
   }
 
+  const handleStatusMutate = () => {
+    // タスクが完了済みの場合はnullにする
+    const completedAt = isCompleted ? null : dayjs().format()
+    updateStatusMutate(completedAt)
+  }
+
+  const { mutate: updateStatusMutate } = useMutation(
+    (completedAt: string) =>
+      fetch(`api/tasks/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          isCompleted: !isCompleted,
+          completedAt,
+        }),
+      }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('tasks')
+        queryClient.invalidateQueries('completedTasks')
+      },
+    }
+  )
+
   const updateContent = () => {
     updateContentMutate()
     setEditingContent(editingContent)
     setIsEditing(false)
   }
-
-  const { mutate: updateStatusMutate } = useMutate({
-    path: `api/tasks/${id}`,
-    method: 'PATCH',
-    body: JSON.stringify({
-      isCompleted: !isCompleted,
-    }),
-    keys: ['tasks', 'completedTasks'],
-  })
 
   const { mutate: updateContentMutate } = useMutate({
     path: `api/tasks/${id}`,
@@ -105,7 +124,7 @@ function Row({ id, content, isCompleted }: IProps): any {
                   <button
                     type="button"
                     onClick={() => {
-                      updateStatusMutate()
+                      handleStatusMutate()
                     }}
                   >
                     <div className="rounded-[50%] bg-neutral-600 border-neutral-300 border-[1px] border-solid">
@@ -136,7 +155,7 @@ function Row({ id, content, isCompleted }: IProps): any {
                   <button
                     type="button"
                     onClick={() => {
-                      updateStatusMutate()
+                      handleStatusMutate()
                     }}
                   >
                     <div className="rounded-[50%] bg-dark-black border-neutral-300 border-[1px] border-solid">

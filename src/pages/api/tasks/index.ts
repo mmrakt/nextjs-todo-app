@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import prisma from '@/libs/prisma'
+import prisma, { Task } from '@/libs/prisma'
 
 const handler = async (
   req: NextApiRequest,
@@ -7,21 +7,38 @@ const handler = async (
 ): Promise<void> => {
   if (req.method === 'GET') {
     const statusNum = Number(req.query.status)
-    const status = statusNum === 1 ? true : false
+    const isCompleted = statusNum === 1 ? true : false
     const userId = String(req.query.userId)
-    const tasks = await prisma.task.findMany({
-      where: {
-        isCompleted: {
-          equals: status,
+    let tasks: Task[] = []
+    if (isCompleted) {
+      tasks = await prisma.task.findMany({
+        where: {
+          isCompleted: {
+            equals: isCompleted,
+          },
+          userId: {
+            equals: userId,
+          },
         },
-        userId: {
-          equals: userId,
+        orderBy: {
+          completedAt: 'desc',
         },
-      },
-      orderBy: {
-        createdAt: 'asc',
-      },
-    })
+      })
+    } else {
+      tasks = await prisma.task.findMany({
+        where: {
+          isCompleted: {
+            equals: isCompleted,
+          },
+          userId: {
+            equals: userId,
+          },
+        },
+        orderBy: {
+          createdAt: 'asc',
+        },
+      })
+    }
 
     if (tasks) {
       res.status(200).json(tasks)
@@ -37,16 +54,13 @@ const handler = async (
           userId,
         },
       })
-      res.json({
-        ok: true,
-      })
-      return
+      res.status(200).end()
     } catch (error) {
-      res.json({
-        ok: false,
-        error,
-      })
+      console.error(error)
+      res.status(500).end()
     }
+  } else {
+    res.status(405).end()
   }
 }
 

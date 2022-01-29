@@ -22,33 +22,29 @@ const handler = async (
       try {
         const id = Number(req.query.id)
         const value = JSON.parse(req.body)
+        console.log(value)
         await prisma.task.update({ where: { id }, data: value })
-        res.json({
-          ok: true,
-        })
-        return
+        res.status(200).end()
       } catch (error) {
-        res.json({
-          ok: false,
-          error,
-        })
+        console.error(error)
+        res.status(500).end()
       }
       break
     case 'DELETE':
       try {
         const id = Number(req.query.id)
         await prisma.task.delete({ where: { id } })
-        res.json({
+        res.status(200).json({
           ok: true,
         })
-        return
+        res.status(200).end()
       } catch (error) {
-        res.json({
-          ok: false,
-          error,
-        })
+        console.error(error)
+        res.status(500).end()
       }
       break
+    default:
+      res.status(405).end()
   }
 }
 
