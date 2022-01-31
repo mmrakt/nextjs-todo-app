@@ -5,7 +5,7 @@ import TodoContainer from '@/components/task/Container'
 
 function Index(): React.ReactElement {
   return (
-    <Layout title="Dashboard">
+    <Layout>
       <TodoContainer />
     </Layout>
   )

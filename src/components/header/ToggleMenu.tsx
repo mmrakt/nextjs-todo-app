@@ -39,7 +39,7 @@ const ToggleMenu = React.memo(() => {
         {session?.user ? (
           <div>
             <StyledMenuItem>
-              <Link href={`/${session?.user?.customId}`}>
+              <Link href={`/settings/${session?.user?.id}`}>
                 <a>マイページ</a>
               </Link>
             </StyledMenuItem>

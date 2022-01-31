@@ -1,45 +1,42 @@
-import { Input } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import React from 'react'
-import { useMutate } from '../../hooks/useMutate'
+import { useForm } from 'react-hook-form'
+import { useQueryClient, useMutation } from 'react-query'
+import InputField from '@/components/common/InputField'
 
 function InputText(): any {
-  const [content, setContent] = React.useState('')
   const { data: session, status } = useSession()
+  const { register, handleSubmit, reset } = useForm()
+  const queryClient = useQueryClient()
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setContent(e.target.value)
-  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (
-      e.key === 'Enter' &&
-      content !== '' &&
-      !(e.nativeEvent as any).isComposing
-    ) {
-      mutate()
-      setContent('')
-    }
+  const onSubmit = async ({ content }) => {
+    storeTaskMutate(content)
+    reset()
   }
 
   const userId = session?.user.id
 
-  const { mutate } = useMutate({
-    path: '/api/tasks',
-    method: 'POST',
-    body: JSON.stringify({
-      content,
-      userId,
-    }),
-    keys: 'tasks',
-  })
+  const { mutate: storeTaskMutate } = useMutation(
+    (content: string) =>
+      fetch('/api/tasks', {
+        method: 'POST',
+        body: JSON.stringify({
+          content,
+          userId,
+        }),
+      }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('tasks')
+      },
+    }
+  )
 
   return (
     <>
-      <Input
-        placeholder="New TODO"
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        value={content}
-      />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <InputField name="content" placeholder="New TODO" register={register} />
+      </form>
     </>
   )
 }

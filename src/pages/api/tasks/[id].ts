@@ -5,24 +5,22 @@ const handler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
+  const id = Number(req.query.id)
   switch (req.method) {
     case 'GET':
-      const id = Number(req.query.id)
       const task = await prisma.task.findFirst({
         where: { id },
       })
 
       if (task) {
-        res.status(200).json(task)
+        res.status(200).end()
       } else {
         res.status(400).json({ debugMessage: `task [id=${id}] not found` })
       }
       break
     case 'PATCH':
       try {
-        const id = Number(req.query.id)
         const value = JSON.parse(req.body)
-        console.log(value)
         await prisma.task.update({ where: { id }, data: value })
         res.status(200).end()
       } catch (error) {
@@ -32,11 +30,7 @@ const handler = async (
       break
     case 'DELETE':
       try {
-        const id = Number(req.query.id)
         await prisma.task.delete({ where: { id } })
-        res.status(200).json({
-          ok: true,
-        })
         res.status(200).end()
       } catch (error) {
         console.error(error)
