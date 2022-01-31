@@ -6,9 +6,9 @@ import Link from 'next/link'
 import Router from 'next/router'
 import React, { FC } from 'react'
 
-const StyledMenuItem: FC<MenuItemProps> = ({ children }) => (
+const StyledMenuItem = ({ text }) => (
   <MenuItem bg="dark.gray" _hover={{ background: 'dark.lightGray' }}>
-    {children}
+    {text}
   </MenuItem>
 )
 
@@ -38,27 +38,27 @@ const ToggleMenu = React.memo(() => {
       <MenuList bg="dark.gray" borderColor="dark.lightGray">
         {session?.user ? (
           <div>
-            <StyledMenuItem>
-              <Link href={`/settings/${session?.user?.id}`}>
-                <a>マイページ</a>
-              </Link>
-            </StyledMenuItem>
-            <StyledMenuItem>
-              <div onClick={handleSignout}>ログアウト</div>
-            </StyledMenuItem>
+            <Link href={`/settings/${session?.user?.id}`}>
+              <a>
+                <StyledMenuItem text="Settings" />
+              </a>
+            </Link>
+            <div onClick={handleSignout}>
+              <StyledMenuItem text="Sign out" />
+            </div>
           </div>
         ) : (
           <div>
-            <StyledMenuItem>
-              <Link href="/signin">
-                <a>ログイン</a>
-              </Link>
-            </StyledMenuItem>
-            <StyledMenuItem>
-              <Link href="/signup">
-                <a>ユーザー登録</a>
-              </Link>
-            </StyledMenuItem>
+            <Link href="/signin">
+              <a>
+                <StyledMenuItem text="Sign in" />
+              </a>
+            </Link>
+            <Link href="/signup">
+              <a>
+                <StyledMenuItem text="Sign up" />
+              </a>
+            </Link>
           </div>
         )}
       </MenuList>
