@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { useQueryClient, useMutation } from 'react-query'
 import Button from '../../components/Button'
-import InputField from '../../components/common/InputField'
+import { InputField, TextareaField } from '../../components/common/InputField'
 import Layout from '../../components/layout'
 import 'react-image-crop/dist/ReactCrop.css'
 
@@ -111,16 +111,25 @@ function Settings(): React.ReactElement {
           />
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <InputField
-                name="name"
-                register={register}
-                rules={{
-                  required: true,
-                }}
-              />
-              {errors.firstName?.type === 'required' && 'Name is required'}
+              <div className="p-3">
+                <InputField
+                  name="name"
+                  register={register}
+                  rules={{
+                    required: true,
+                    maxLength: 20,
+                  }}
+                />
+                <span className="text-white">
+                  {errors.name?.type === 'required' && 'Name is required'}
+                  {errors.name?.type === 'maxLength' &&
+                    'Name exceeds 20 characters.'}
+                </span>
+              </div>
               {/* TODO: profileの型がunknownになる理由を調べる */}
-              <InputField name="profile" register={register} />
+              <div className="p-3">
+                <TextareaField name="profile" register={register} />
+              </div>
             </div>
             <Button type="submit" text="register" />
           </form>
