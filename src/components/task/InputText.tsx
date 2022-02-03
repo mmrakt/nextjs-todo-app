@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useQueryClient, useMutation } from 'react-query'
-import InputField from '@/components/common/InputField'
+import { InputField } from '@/components/common/InputField'
 
 function InputText(): any {
   const { data: session, status } = useSession()

@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { useQueryClient, useMutation } from 'react-query'
-import Button from '../../components/Button'
+import Button from '../../components/common/Button'
 import { InputField, TextareaField } from '../../components/common/InputField'
 import Layout from '../../components/layout'
 import 'react-image-crop/dist/ReactCrop.css'
@@ -26,13 +26,14 @@ function Settings(): React.ReactElement {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
   } = useForm({
     criteriaMode: 'all',
     mode: 'onChange',
   })
   const queryClient = useQueryClient()
+
   React.useEffect(() => {
     setValue('name', session?.user.name)
     setValue('profile', session?.user.profile)
@@ -59,9 +60,9 @@ function Settings(): React.ReactElement {
       await updateUserInfoOnLocalStorage({ name, profile })
     } catch (error) {
       console.error(error)
+    } finally {
+      Router.push(`/settings/${userInfo?.id}`)
     }
-
-    Router.push(`/settings/${userInfo?.id}`)
   }
 
   const { mutate: updateUserInfoMutate } = useMutation(
@@ -131,7 +132,12 @@ function Settings(): React.ReactElement {
                 <TextareaField name="profile" register={register} />
               </div>
             </div>
-            <Button type="submit" text="register" />
+            <Button
+              type="submit"
+              text="Update"
+              className="text-black"
+              isLoading={isSubmitting}
+            />
           </form>
         </div>
       )}
