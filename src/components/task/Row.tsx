@@ -6,6 +6,7 @@ import React from 'react'
 import { useQueryClient, useMutation } from 'react-query'
 import { useMutate } from '../../hooks/useMutate'
 import Button from '../common/Button'
+import CircleCheckbox from '../common/CircleCheckbox'
 
 type IProps = {
   id: number
@@ -105,13 +106,15 @@ function Row({ id, content, isCompleted }: IProps): any {
                 <div className="float">
                   <Button
                     text="保存"
-                    onClickEvent={handleClick}
+                    onClick={handleClick}
                     className="border-2 border-blue-500"
+                    bgColor="blue"
                   />
                   <Button
                     text="キャンセル"
-                    onClickEvent={handleToggleInput}
-                    className="bg-dark-black hover:bg-dark-lightGray border-2 border-dark-lightGray ml-5"
+                    onClick={handleToggleInput}
+                    className="border-2 ml-5"
+                    bgColor="blackAlpha"
                   />
                 </div>
               </Stack>
@@ -120,24 +123,12 @@ function Row({ id, content, isCompleted }: IProps): any {
             <>
               {isCompleted ? (
                 <>
-                  <button
-                    type="button"
+                  <CircleCheckbox
+                    isCompleted={isCompleted}
                     onClick={() => {
                       handleStatusMutate()
                     }}
-                  >
-                    <div className="rounded-[50%] bg-neutral-600 border-neutral-300 border-[1px] border-solid">
-                      <svg
-                        className="w-6 h-6"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          className="stroke-slate-300 stroke-1"
-                          d="M11.23 13.7l-2.15-2a.55.55 0 0 0-.74-.01l.03-.03a.46.46 0 0 0 0 .68L11.24 15l5.4-5.01a.45.45 0 0 0 0-.68l.02.03a.55.55 0 0 0-.73 0l-4.7 4.35z"
-                        />
-                      </svg>
-                    </div>
-                  </button>
+                  />
                   <div
                     className="ml-3 text-xl w-full"
                     onClick={() => {
@@ -151,21 +142,12 @@ function Row({ id, content, isCompleted }: IProps): any {
                 </>
               ) : (
                 <>
-                  <button
-                    type="button"
+                  <CircleCheckbox
+                    isCompleted={isCompleted}
                     onClick={() => {
                       handleStatusMutate()
                     }}
-                  >
-                    <div className="rounded-[50%] bg-dark-black border-neutral-300 border-[1px] border-solid">
-                      <svg
-                        className="w-6 h-6"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M11.23 13.7l-2.15-2a.55.55 0 0 0-.74-.01l.03-.03a.46.46 0 0 0 0 .68L11.24 15l5.4-5.01a.45.45 0 0 0 0-.68l.02.03a.55.55 0 0 0-.73 0l-4.7 4.35z" />
-                      </svg>
-                    </div>
-                  </button>
+                  />
                   <div
                     className="ml-3 text-xl w-full"
                     onClick={() => {

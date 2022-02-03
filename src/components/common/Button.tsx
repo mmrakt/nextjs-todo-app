@@ -4,10 +4,11 @@ import React from 'react'
 type IProps = {
   text: string
   type?: 'button' | 'submit' | 'reset'
-  onClickEvent?: (
+  onClick?: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => Promise<void> | void
   className?: string
+  bgColor?: string
   isLoading?: boolean
   loadingText?: string
   disabledButton?: boolean
@@ -15,8 +16,9 @@ type IProps = {
 function Button({
   text,
   type,
-  onClickEvent,
+  onClick,
   className,
+  bgColor,
   isLoading,
   loadingText,
   disabledButton,
@@ -24,10 +26,11 @@ function Button({
   return (
     <ButtonElement
       type={type}
-      className={className}
+      colorScheme={bgColor}
+      className={`${className}`}
       isLoading={isLoading}
       loadingText={loadingText}
-      onClick={onClickEvent}
+      onClick={onClick}
     >
       {text}
     </ButtonElement>

@@ -136,6 +136,7 @@ function Settings(): React.ReactElement {
               type="submit"
               text="Update"
               className="text-black"
+              bgColor="blue"
               isLoading={isSubmitting}
             />
           </form>
