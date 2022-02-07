@@ -6,7 +6,8 @@ type IProps = {
 }
 
 function Row({ isCompleted, onClick }: IProps): any {
-  const divStyles = 'rounded-[50%] border-neutral-300 border-[1px] border-solid'
+  const divStyles =
+    'rounded-[50%] border-neutral-300 border-[1px] border-solid active:animate-ping active:animation-delay-500'
   const svgStyles = 'w-6 h-6'
   return (
     <>

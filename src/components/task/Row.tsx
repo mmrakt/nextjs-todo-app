@@ -160,7 +160,7 @@ function Row({ id, content, isCompleted }: IProps): any {
               )}
               <button
                 type="button"
-                className="hover:bg-neutral-600"
+                className="hover:bg-neutral-600 active:animate-ping active:animation-delay-500"
                 onClick={() => {
                   isCompleted
                     ? deleteCompletedMutate()
