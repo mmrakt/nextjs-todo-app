@@ -25,19 +25,21 @@ const handler = async (
         },
       })
     } else {
-      tasks = await prisma.task.findMany({
-        where: {
-          isCompleted: {
-            equals: isCompleted,
-          },
-          userId: {
-            equals: userId,
-          },
-        },
-        orderBy: {
-          createdAt: 'asc',
-        },
-      })
+      tasks = await prisma.$queryRaw`
+          select
+              *
+          from
+              "public"."Task"
+          where
+              "isCompleted" = ${isCompleted}
+          and "userId" = ${userId}
+          order by
+              case
+                  when "completedAt" is null then "createdAt"
+                  else "completedAt"
+              end desc
+          ;
+        `
     }
 
     if (tasks) {
