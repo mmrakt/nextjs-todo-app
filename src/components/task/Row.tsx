@@ -25,6 +25,7 @@ function Row({ id, content, isCompleted }: IProps): any {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEditingContent(e.target.value)
+
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (
       e.key === 'Enter' &&
@@ -105,13 +106,13 @@ function Row({ id, content, isCompleted }: IProps): any {
                 />
                 <div className="float">
                   <Button
-                    text="保存"
+                    text="Save"
                     onClick={handleClick}
                     className="border-2 border-blue-500"
                     bgColor="blue"
                   />
                   <Button
-                    text="キャンセル"
+                    text="Cancel"
                     onClick={handleToggleInput}
                     className="border-2 ml-5"
                     bgColor="blackAlpha"
@@ -121,14 +122,14 @@ function Row({ id, content, isCompleted }: IProps): any {
             </>
           ) : (
             <>
+              <CircleCheckbox
+                isCompleted={isCompleted}
+                onClick={() => {
+                  handleStatusMutate()
+                }}
+              />
               {isCompleted ? (
                 <>
-                  <CircleCheckbox
-                    isCompleted={isCompleted}
-                    onClick={() => {
-                      handleStatusMutate()
-                    }}
-                  />
                   <div
                     className="ml-3 text-xl w-full"
                     onClick={() => {
@@ -142,12 +143,6 @@ function Row({ id, content, isCompleted }: IProps): any {
                 </>
               ) : (
                 <>
-                  <CircleCheckbox
-                    isCompleted={isCompleted}
-                    onClick={() => {
-                      handleStatusMutate()
-                    }}
-                  />
                   <div
                     className="ml-3 text-xl w-full"
                     onClick={() => {

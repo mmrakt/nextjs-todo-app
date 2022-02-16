@@ -54,7 +54,6 @@ function TextareaField({
         name={name}
         placeholder={placeholder}
         onChange={changeFn}
-        // onKeyDown={keyDownFn}
         value={value}
         className={className}
         {...register(name, rules)}

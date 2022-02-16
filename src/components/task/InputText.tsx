@@ -10,8 +10,10 @@ function InputText(): any {
   const queryClient = useQueryClient()
 
   const onSubmit = async ({ content }) => {
-    storeTaskMutate(content)
-    reset()
+    if (content !== '') {
+      storeTaskMutate(content)
+      reset()
+    }
   }
 
   const userId = session?.user.id
