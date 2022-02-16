@@ -1,5 +1,4 @@
 import { Avatar, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
-import { MenuItemProps } from '@material-ui/core'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'

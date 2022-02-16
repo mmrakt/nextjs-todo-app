@@ -2,7 +2,7 @@ import { ClientSafeProvider, getProviders, useSession } from 'next-auth/react'
 import Router from 'next/router'
 import React from 'react'
 
-import Layout from '../../components/layout'
+import Layout from '../../components/Layout'
 
 import SocialButton from './socialButton'
 
@@ -21,7 +21,7 @@ function Signin({
   const { data: session, status } = useSession()
   React.useEffect(() => {
     if (status === 'authenticated') {
-      Router.push('/')
+      Router.push('/today')
     }
   }, [status])
 

@@ -20,6 +20,15 @@ const config = {
     ],
   },
   reactStrictMode: false,
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/today',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default config

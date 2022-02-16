@@ -6,9 +6,9 @@ import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { useQueryClient, useMutation } from 'react-query'
+import Layout from '../../components/Layout'
 import Button from '../../components/common/Button'
 import { InputField, TextareaField } from '../../components/common/InputField'
-import Layout from '../../components/layout'
 import 'react-image-crop/dist/ReactCrop.css'
 
 import AvatalTrimmingModal from './AvatarTrimmingModal'
