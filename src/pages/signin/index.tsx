@@ -26,13 +26,13 @@ function Signin({
   }, [status])
 
   return (
-    <Layout title="ログイン">
+    <Layout>
       <div className="text-center">
         {Object.values(providers).map((provider) => (
           <div key={provider.id}>
             <SocialButton
-              id={provider.id}
-              name={provider.name}
+              providerId={provider.id}
+              providerName={provider.name}
               theme={
                 provider.name === 'GitHub'
                   ? 'bg-gray-500'

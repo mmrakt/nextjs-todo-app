@@ -96,7 +96,7 @@ function Settings(): React.ReactElement {
       {userInfo && (
         <div>
           <Image
-            src={userInfo.image ? userInfo.image : 'avatar.png'}
+            src={userInfo.image ? userInfo.image : '/avatar.png'}
             alt="avater image"
             width={100}
             height={100}
