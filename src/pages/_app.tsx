@@ -7,7 +7,6 @@ import Head from 'next/head'
 import NextNprogress from 'nextjs-progressbar'
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import 'react-calendar/dist/Calendar.css'
 
 import theme from '../components/theme'
 import chakuraUiTheme from '../theme/chakraUiTheme'

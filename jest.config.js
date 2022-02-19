@@ -4,7 +4,6 @@ module.exports = {
   roots: ['<rootDir>/src'],
   setupFilesAfterEnv: ['<rootDir>/test/setupTests.ts'],
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules'],
-  snapshotSerializers: ['enzyme-to-json/serializer'],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
     '^.+\\.js$': 'babel-jest',
@@ -16,8 +15,8 @@ module.exports = {
     // to transform jsx into js rather than leaving it jsx such as the next build requires. you
     // can see this setting in tsconfig.jest.json -> "jsx": "react"
     'ts-jest': {
-      tsConfig: '<rootDir>/test/tsconfig.jest.json',
+      tsconfig: '<rootDir>/test/tsconfig.jest.json',
     },
   },
-  testMatch: ['<rootDir>/src/components/__tests__/*.spec.*'],
+  testMatch: ['<rootDir>/src/*/__tests__/*.spec.*'],
 }
