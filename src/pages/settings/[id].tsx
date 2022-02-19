@@ -1,7 +1,7 @@
 import { User } from 'next-auth'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -33,6 +33,7 @@ function Settings(): React.ReactElement {
     mode: 'onChange',
   })
   const queryClient = useQueryClient()
+  const router = useRouter()
 
   React.useEffect(() => {
     setValue('name', session?.user.name)
@@ -61,7 +62,7 @@ function Settings(): React.ReactElement {
     } catch (error) {
       console.error(error)
     } finally {
-      Router.push(`/settings/${userInfo?.id}`)
+      router.push(`/settings/${userInfo?.id}`)
     }
   }
 

@@ -2,7 +2,7 @@ import { Avatar, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Router from 'next/router'
+import router, { useRouter } from 'next/router'
 import React, { FC } from 'react'
 
 const StyledMenuItem = ({ text }) => (
@@ -13,10 +13,11 @@ const StyledMenuItem = ({ text }) => (
 
 const ToggleMenu = React.memo(() => {
   const { data: session }: any = useSession()
+  const router = useRouter()
 
   const handleSignout = () => {
     signOut({
-      callbackUrl: Router.basePath,
+      callbackUrl: router.basePath,
     })
   }
 

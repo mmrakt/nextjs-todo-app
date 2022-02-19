@@ -1,5 +1,5 @@
 import { ClientSafeProvider, getProviders, useSession } from 'next-auth/react'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import React, { ReactElement } from 'react'
 
 import Layout from '../../components/Layout'
@@ -18,10 +18,12 @@ const SigninConatiner = ({
   providers: ClientSafeProvider
 }): ReactElement => {
   const { data: session, status } = useSession()
+  const router = useRouter()
+
   if (status === 'loading') return null
 
   if (status === 'authenticated') {
-    Router.push('/today')
+    router.push('/today')
     return null
   }
 
