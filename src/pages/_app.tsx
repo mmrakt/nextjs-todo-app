@@ -8,7 +8,6 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 import chakuraUiTheme from '../theme/chakraUiTheme'
 import 'minireset.css'
-import 'react-toastify/dist/ReactToastify.css'
 import '../../styles/globals.css'
 import 'tailwindcss/tailwind.css'
 

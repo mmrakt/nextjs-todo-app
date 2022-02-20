@@ -6,14 +6,14 @@ import ToggleMenu from './ToggleMenu'
 
 const Header = React.memo(() => (
   <div className="shadow-lg h-20 flex dark:bg-dark-gray">
-    <MediaQuery query="(max-width: 1000px)">
+    <MediaQuery maxWidth={1000}>
       <p className="mx-4 py-8 font-black text-xl">
         <Link href="/">
           <a>TODO App</a>
         </Link>
       </p>
     </MediaQuery>
-    <MediaQuery query="(min-width: 1000px)">
+    <MediaQuery minWidth={1001}>
       <p className="px-8 py-8 font-black text-xl">
         <Link href="/">
           <a>TODO App</a>
