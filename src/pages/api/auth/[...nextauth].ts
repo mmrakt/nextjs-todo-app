@@ -26,7 +26,6 @@ export default NextAuth({
   pages: {
     signIn: '/signin',
   },
-  secret: process.env.SECRET,
   callbacks: {
     async session({ session, user, token }) {
       session.user.id = user.id
