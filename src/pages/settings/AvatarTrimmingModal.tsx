@@ -1,11 +1,9 @@
-import { Button } from '@material-ui/core'
 import { useSession } from 'next-auth/react'
 import React, { useRef, useState } from 'react'
 import ReactCrop, { Crop } from 'react-image-crop'
 
 import Modal from 'react-modal'
 import { useMutation, useQueryClient } from 'react-query'
-import { storage } from '../../../functions/firebase'
 
 import 'react-image-crop/dist/ReactCrop.css'
 import { defaultCrop, imageCropped } from '../../utils/crop'
@@ -74,17 +72,17 @@ function AvatalTrimmingModal(props: IProps): React.ReactElement {
     processing.current = true
 
     try {
-      storage
-        .ref()
-        .child(`images/${formatDateTime(new Date())}`)
-        .put(croppedBlob)
-        .then((snapshot) => {
-          snapshot.ref.getDownloadURL().then(async (avatarUrl: string) => {
-            await mutate(avatarUrl)
-            processing.current = false
-            onRequestClose()
-          })
-        })
+      // storage
+      //   .ref()
+      //   .child(`images/${formatDateTime(new Date())}`)
+      //   .put(croppedBlob)
+      //   .then((snapshot) => {
+      //     snapshot.ref.getDownloadURL().then(async (avatarUrl: string) => {
+      //       await mutate(avatarUrl)
+      //       processing.current = false
+      //       onRequestClose()
+      //     })
+      //   })
     } catch (error) {
       console.log(error)
     }
@@ -92,7 +90,7 @@ function AvatalTrimmingModal(props: IProps): React.ReactElement {
 
   const { mutate } = useMutation(
     (avatarUrl: string) =>
-      fetch(`api/user/updateImage/?customId=${session.user.customId}`, {
+      fetch(`api/user/updateImage/?customId=${session.user.id}`, {
         method: 'POST',
         body: avatarUrl,
       }),
@@ -119,13 +117,11 @@ function AvatalTrimmingModal(props: IProps): React.ReactElement {
         ruleOfThirds
       />
       <div>
-        <Button variant="contained" onClick={onRequestClose}>
-          キャンセル
-        </Button>
+        <button onClick={onRequestClose}>キャンセル</button>
         {croppedImageUrl && (
-          <Button variant="contained" color="primary" onClick={onUploadAvatar}>
+          <button color="primary" onClick={onUploadAvatar}>
             OK
-          </Button>
+          </button>
         )}
       </div>
     </Modal>

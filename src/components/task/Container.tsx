@@ -1,4 +1,3 @@
-import { Container } from '@material-ui/core'
 import React from 'react'
 
 import useCheckSession from '../../hooks/useCheckSession'
@@ -12,7 +11,7 @@ function TodoContainer(): React.ReactElement {
   const { id } = result.user
 
   return (
-    <Container maxWidth="sm">
+    <div>
       <InputText />
       <div className="mt-10">
         <List userId={id} />
@@ -20,7 +19,7 @@ function TodoContainer(): React.ReactElement {
       <div className="mt-10">
         <CompletedList userId={id} />
       </div>
-    </Container>
+    </div>
   )
 }
 
