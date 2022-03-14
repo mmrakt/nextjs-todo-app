@@ -9,6 +9,8 @@ const config = {
       new URL(import.meta.url).pathname,
       'src'
     )
+    // NOTE: https://github.com/prisma/prisma/issues/6564 の対応
+    config.externals = ['_http_common']
     return config
   },
   images: {

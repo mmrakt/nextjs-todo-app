@@ -1,16 +1,22 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import { PrismaClient } from '@prisma/client'
-// import dotenv from 'dotenv'
+import dotenv from 'dotenv'
 import NextAuth from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import TwitterProvider from 'next-auth/providers/twitter'
+import { PrismaClient as localClient } from '../../../../prisma/generated/local'
+import { PrismaClient as productionClient } from '../../../../prisma/generated/production'
 
-// dotenv.config({
-//   path: `.env.${process.env.NODE_ENV}`,
-// })
+dotenv.config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
-const prisma = new PrismaClient()
+let prisma = null
+if (process.env.NODE_ENV === 'production') {
+  prisma = new productionClient()
+} else {
+  prisma = new localClient()
+}
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
