@@ -7,7 +7,6 @@ import SocialButton from './socialButton'
 
 export async function getServerSideProps(context) {
   const providers = await getProviders()
-  // const providers = []
   return {
     props: { providers },
   }
@@ -27,8 +26,6 @@ const SigninConatiner = ({
     router.push('/today')
     return null
   }
-
-  if (!providers) return null
 
   return (
     <div className="text-center">
