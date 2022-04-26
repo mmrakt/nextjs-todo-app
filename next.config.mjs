@@ -4,13 +4,15 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const config = {
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.resolve.alias['@'] = path.join(
       new URL(import.meta.url).pathname,
       'src'
     )
-    // NOTE: https://github.com/prisma/prisma/issues/6564 の対応
-    config.externals = ['_http_common']
+    // https://github.com/prisma/prisma/issues/6564#issuecomment-849685096
+    if (isServer) {
+      config.externals.push('_http_common')
+    }
     return config
   },
   images: {

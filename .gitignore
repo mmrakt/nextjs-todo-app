@@ -42,3 +42,5 @@ nextjs-app*.json
 *_backup*
 
 .vscode/*
+
+prisma/generated/*
