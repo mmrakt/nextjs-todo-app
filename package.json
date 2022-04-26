@@ -13,7 +13,9 @@
     "f": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'",
     "f:w": "onchange '**/*.{ts,tsx,js}' -e '.next/**/*.js' -- prettier --config ./.prettierrc --write {{changed}}",
     "test": "jest --watch",
-    "test:coverage": "jest --collect-coverage"
+    "test:coverage": "jest --collect-coverage",
+    "prisma:migrate:all": "prisma migrate dev --schema prisma/local.prisma --preview-feature && prisma migrate dev --schema prisma/prod.prisma --preview-feature",
+    "prisma:generate:all": "prisma generate --schema prisma/local.prisma && prisma generate --schema prisma/prod.prisma"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
