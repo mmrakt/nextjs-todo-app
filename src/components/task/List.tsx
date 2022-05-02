@@ -1,8 +1,8 @@
 import { List as ChakraUiList } from '@chakra-ui/react'
-import { Task } from '@prisma/client'
 import React from 'react'
 import { useQuery } from 'react-query'
 import Row from './Row'
+import { Task } from '@/libs/prisma'
 
 function List({ userId }: { userId: string }): any {
   const { data: tasks, isLoading } = useQuery<Task[]>('tasks', async () => {

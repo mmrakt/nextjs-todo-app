@@ -1,6 +1,6 @@
-import { PrismaClient as LocalPrismaClient } from '../../prisma/generated/client'
+import { PrismaClient } from '@prisma/client'
 
-const prisma = new LocalPrismaClient({
+const prisma = new PrismaClient({
   log: ['query', 'error', 'info', 'warn'],
 })
 
