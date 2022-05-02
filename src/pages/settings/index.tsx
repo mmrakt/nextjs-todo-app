@@ -96,15 +96,24 @@ function Settings(): React.ReactElement {
     <Layout>
       {userInfo && (
         <div>
-          <Image
-            src={userInfo.image ? userInfo.image : '/avatar.png'}
-            alt="avater image"
-            width={100}
-            height={100}
-            className="rounded-[50%]"
-          />
-          <div>
-            <input type="file" accept="image/*" onChange={onSelectFile} />
+          <div className="class flex items-center">
+            <Image
+              src={userInfo.image ? userInfo.image : '/avatar.png'}
+              alt="avater image"
+              width={100}
+              height={100}
+              className="rounded-[50%]"
+            />
+            <button className="btn normal-case ml-5">
+              <label htmlFor="file">
+                Upload File
+                <input
+                  className="hidden"
+                  accept="image/*"
+                  onChange={onSelectFile}
+                />
+              </label>
+            </button>
           </div>
           <AvatalTrimmingModal
             modalIsOpen={modalIsOpen}
@@ -112,10 +121,14 @@ function Settings(): React.ReactElement {
             src={src}
           />
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-              <div className="p-3">
+            <div className="p-3">
+              <div className="">
+                <label htmlFor="name" className="">
+                  Name
+                </label>
                 <InputField
                   name="name"
+                  className="mt-2"
                   register={register}
                   rules={{
                     required: true,
@@ -129,17 +142,26 @@ function Settings(): React.ReactElement {
                 </span>
               </div>
               {/* TODO: profileの型がunknownになる理由を調べる */}
-              <div className="p-3">
-                <TextareaField name="profile" register={register} />
+              <div className="mt-5">
+                <label htmlFor="profile" className="class">
+                  Profile
+                </label>
+                <TextareaField
+                  className="mt-2 outline-black"
+                  name="profile"
+                  register={register}
+                />
+              </div>
+              <div className="mt-10 float-right">
+                <Button
+                  type="submit"
+                  text="Update"
+                  className="text-black"
+                  bgColor="blue"
+                  isLoading={isSubmitting}
+                />
               </div>
             </div>
-            <Button
-              type="submit"
-              text="Update"
-              className="text-black"
-              bgColor="blue"
-              isLoading={isSubmitting}
-            />
           </form>
         </div>
       )}
