@@ -1,7 +1,7 @@
 import { DeleteIcon } from '@chakra-ui/icons'
 import { ListItem, Input, Stack } from '@chakra-ui/react'
 import dayjs from 'dayjs'
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useQueryClient, useMutation } from 'react-query'
 import { useMutate } from '../../hooks/useMutate'
 import Button from '../common/Button'
@@ -18,9 +18,26 @@ function Row({ id, content, isCompleted }: IProps): any {
   const [editingContent, setEditingContent] = React.useState(content)
   const queryClient = useQueryClient()
 
-  const handleToggleInput = () => {
+  const handleToggleInput = (event) => {
     setEditingContent(content)
-    setIsEditing(isEditing ? false : true)
+    openModal(event)
+  }
+
+  const closeModal = useCallback(() => {
+    setIsEditing(false)
+    document.removeEventListener('click', closeModal)
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      document.removeEventListener('click', closeModal)
+    }
+  }, [closeModal])
+
+  const openModal = (event) => {
+    setIsEditing(true)
+    document.addEventListener('click', closeModal)
+    event.stopPropagation()
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -96,7 +113,13 @@ function Row({ id, content, isCompleted }: IProps): any {
       <ListItem>
         <div className="flex items-center my-3">
           {isEditing ? (
-            <>
+            <div
+              id="modal"
+              className="absolute flex justify-center content-center items-center h-full bg-[rgba(0, 0, 0, 5)]"
+              onClick={(event) => {
+                event.stopPropagation()
+              }}
+            >
               <Stack className="w-full">
                 <Input
                   placeholder="Change TODO"
@@ -113,13 +136,13 @@ function Row({ id, content, isCompleted }: IProps): any {
                   />
                   <Button
                     text="Cancel"
-                    onClick={handleToggleInput}
+                    onClick={closeModal}
                     className="border-2 ml-5"
                     bgColor="blackAlpha"
                   />
                 </div>
               </Stack>
-            </>
+            </div>
           ) : (
             <>
               <CircleCheckbox
@@ -132,8 +155,8 @@ function Row({ id, content, isCompleted }: IProps): any {
                 <>
                   <div
                     className="ml-3 text-xl w-full"
-                    onClick={() => {
-                      handleToggleInput()
+                    onClick={(event) => {
+                      handleToggleInput(event)
                     }}
                   >
                     <span className="line-through text-neutral-500">
@@ -145,8 +168,8 @@ function Row({ id, content, isCompleted }: IProps): any {
                 <>
                   <div
                     className="ml-3 text-xl w-full"
-                    onClick={() => {
-                      handleToggleInput()
+                    onClick={(event) => {
+                      handleToggleInput(event)
                     }}
                   >
                     {editingContent}

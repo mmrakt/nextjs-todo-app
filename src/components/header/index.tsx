@@ -5,7 +5,7 @@ import MediaQuery from 'react-responsive'
 import ToggleMenu from './ToggleMenu'
 
 const Header = React.memo(() => (
-  <div className="shadow-lg h-20 flex dark:bg-dark-gray">
+  <div className="shadow-lg h-20 flex dark:bg-dark-lightGray">
     <MediaQuery maxWidth={1000}>
       <p className="mx-4 py-8 font-black text-xl">
         <Link href="/">
