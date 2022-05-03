@@ -1,4 +1,3 @@
-import path from 'path'
 import { DeleteIcon } from '@chakra-ui/icons'
 import { ListItem, Input, Stack } from '@chakra-ui/react'
 import dayjs from 'dayjs'
@@ -20,6 +19,7 @@ function Row({ id, content, isCompleted }: IProps): any {
   const queryClient = useQueryClient()
 
   const handleToggleInput = () => {
+    setEditingContent(content)
     setIsEditing(isEditing ? false : true)
   }
 
@@ -58,8 +58,8 @@ function Row({ id, content, isCompleted }: IProps): any {
       }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('tasks')
-        queryClient.invalidateQueries('completedTasks')
+        queryClient.resetQueries('tasks')
+        queryClient.resetQueries('completedTasks')
       },
     }
   )
@@ -137,7 +137,7 @@ function Row({ id, content, isCompleted }: IProps): any {
                     }}
                   >
                     <span className="line-through text-neutral-500">
-                      {content}
+                      {editingContent}
                     </span>
                   </div>
                 </>
@@ -149,7 +149,7 @@ function Row({ id, content, isCompleted }: IProps): any {
                       handleToggleInput()
                     }}
                   >
-                    {content}
+                    {editingContent}
                   </div>
                 </>
               )}

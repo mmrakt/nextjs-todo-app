@@ -29,7 +29,7 @@ function InputText(): any {
       }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('tasks')
+        queryClient.resetQueries('tasks')
       },
     }
   )

@@ -38,6 +38,11 @@ const ToggleMenu = React.memo(() => {
       <MenuList bg="dark.gray" borderColor="dark.lightGray">
         {session?.user ? (
           <div>
+            <Link href="/today">
+              <a>
+                <StyledMenuItem text="TODO" />
+              </a>
+            </Link>
             <Link href="/settings">
               <a>
                 <StyledMenuItem text="Settings" />

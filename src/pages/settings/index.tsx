@@ -62,7 +62,7 @@ function Settings(): React.ReactElement {
     } catch (error) {
       console.error(error)
     } finally {
-      router.push(`/settings/${userInfo?.id}`)
+      router.push('/settings')
     }
   }
 
