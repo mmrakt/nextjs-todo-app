@@ -6,7 +6,7 @@ import router, { useRouter } from 'next/router'
 import React, { FC } from 'react'
 
 const StyledMenuItem = ({ text }) => (
-  <MenuItem bg="dark.gray" _hover={{ background: 'dark.lightGray' }}>
+  <MenuItem bg="dark.800" _hover={{ background: 'dark.700' }}>
     {text}
   </MenuItem>
 )
@@ -35,7 +35,7 @@ const ToggleMenu = React.memo(() => {
           />
         }
       />
-      <MenuList bg="dark.gray" borderColor="dark.lightGray">
+      <MenuList bg="dark.800" borderColor="dark.700">
         {session?.user ? (
           <div>
             <Link href="/today">

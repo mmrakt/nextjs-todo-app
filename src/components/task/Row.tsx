@@ -1,7 +1,16 @@
 import { DeleteIcon } from '@chakra-ui/icons'
-import { ListItem, Input, Stack } from '@chakra-ui/react'
+import {
+  ListItem,
+  Input,
+  Stack,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  useDisclosure,
+} from '@chakra-ui/react'
 import dayjs from 'dayjs'
-import React, { useCallback, useEffect } from 'react'
+import React from 'react'
 import { useQueryClient, useMutation } from 'react-query'
 import { useMutate } from '../../hooks/useMutate'
 import Button from '../common/Button'
@@ -14,31 +23,9 @@ type IProps = {
 }
 
 function Row({ id, content, isCompleted }: IProps): any {
-  const [isEditing, setIsEditing] = React.useState(false)
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const [editingContent, setEditingContent] = React.useState(content)
   const queryClient = useQueryClient()
-
-  const handleToggleInput = (event) => {
-    setEditingContent(content)
-    openModal(event)
-  }
-
-  const closeModal = useCallback(() => {
-    setIsEditing(false)
-    document.removeEventListener('click', closeModal)
-  }, [])
-
-  useEffect(() => {
-    return () => {
-      document.removeEventListener('click', closeModal)
-    }
-  }, [closeModal])
-
-  const openModal = (event) => {
-    setIsEditing(true)
-    document.addEventListener('click', closeModal)
-    event.stopPropagation()
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEditingContent(e.target.value)
@@ -50,11 +37,13 @@ function Row({ id, content, isCompleted }: IProps): any {
       !(e.nativeEvent as any).isComposing
     ) {
       updateContent()
+      onClose()
     }
   }
   const handleClick = async (e: React.MouseEvent<HTMLInputElement>) => {
     if (editingContent !== '' && !(e.nativeEvent as any).isComposing) {
       updateContent()
+      onClose()
     }
   }
 
@@ -84,7 +73,6 @@ function Row({ id, content, isCompleted }: IProps): any {
   const updateContent = () => {
     updateContentMutate()
     setEditingContent(editingContent)
-    setIsEditing(false)
   }
 
   const { mutate: updateContentMutate } = useMutate({
@@ -112,86 +100,73 @@ function Row({ id, content, isCompleted }: IProps): any {
     <>
       <ListItem>
         <div className="flex items-center my-3">
-          {isEditing ? (
-            <div
-              id="modal"
-              className="absolute flex justify-center content-center items-center h-full bg-[rgba(0, 0, 0, 5)]"
-              onClick={(event) => {
-                event.stopPropagation()
-              }}
-            >
-              <Stack className="w-full">
-                <Input
-                  placeholder="Change TODO"
-                  onChange={handleChange}
-                  onKeyDown={handleKeyDown}
-                  value={editingContent}
-                />
-                <div className="float">
-                  <Button
-                    text="Save"
-                    onClick={handleClick}
-                    className="border-2 border-blue-500"
-                    bgColor="blue"
-                  />
-                  <Button
-                    text="Cancel"
-                    onClick={closeModal}
-                    className="border-2 ml-5"
-                    bgColor="blackAlpha"
-                  />
-                </div>
-              </Stack>
-            </div>
+          {isOpen ? (
+            <Modal isOpen={isOpen} onClose={onClose} size="3xl" isCentered>
+              <ModalOverlay />
+              <ModalContent bg="dark.800" className="p-5">
+                <ModalBody>
+                  <Stack className="">
+                    <Input
+                      placeholder="Change TODO"
+                      onChange={handleChange}
+                      onKeyDown={handleKeyDown}
+                      value={editingContent}
+                      className="text-white"
+                    />
+                    <div className="float">
+                      <Button
+                        text="Save"
+                        onClick={handleClick}
+                        className="border-2 border-blue-500"
+                        bgColor="blue"
+                      />
+                      <Button
+                        text="Cancel"
+                        onClick={onClose}
+                        className="border-2 ml-5"
+                        bgColor="blackAlpha"
+                      />
+                    </div>
+                  </Stack>
+                </ModalBody>
+              </ModalContent>
+            </Modal>
+          ) : (
+            <></>
+          )}
+          <CircleCheckbox
+            isCompleted={isCompleted}
+            onClick={() => {
+              handleStatusMutate()
+            }}
+          />
+          {isCompleted ? (
+            <>
+              <div className="ml-3 text-xl w-full" onClick={onOpen}>
+                <span className="line-through text-neutral-500">
+                  {editingContent}
+                </span>
+              </div>
+            </>
           ) : (
             <>
-              <CircleCheckbox
-                isCompleted={isCompleted}
-                onClick={() => {
-                  handleStatusMutate()
-                }}
-              />
-              {isCompleted ? (
-                <>
-                  <div
-                    className="ml-3 text-xl w-full"
-                    onClick={(event) => {
-                      handleToggleInput(event)
-                    }}
-                  >
-                    <span className="line-through text-neutral-500">
-                      {editingContent}
-                    </span>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div
-                    className="ml-3 text-xl w-full"
-                    onClick={(event) => {
-                      handleToggleInput(event)
-                    }}
-                  >
-                    {editingContent}
-                  </div>
-                </>
-              )}
-              <button
-                type="button"
-                className="hover:bg-neutral-600 active:animate-ping active:animation-delay-500"
-                onClick={() => {
-                  isCompleted
-                    ? deleteCompletedMutate()
-                    : deleteUncompletedMutate()
-                }}
-              >
-                <DeleteIcon className="p-1" boxSize={6} />
-              </button>
+              <div className="ml-3 text-xl w-full" onClick={onOpen}>
+                {editingContent}
+              </div>
             </>
           )}
+          <button
+            type="button"
+            className="hover:bg-neutral-600 active:animate-ping active:animation-delay-500"
+            onClick={() => {
+              isCompleted ? deleteCompletedMutate() : deleteUncompletedMutate()
+            }}
+          >
+            <DeleteIcon className="p-1" boxSize={6} />
+          </button>
         </div>
       </ListItem>
-      <hr className="bg-slate-200" />
+      <hr className="border-dark-700" />
     </>
   )
 }
