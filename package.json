@@ -1,9 +1,9 @@
 {
   "name": "nextjs-todo-app",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "d": "next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "debug": "NODE_OPTIONS='--inspect' next dev",
@@ -13,9 +13,9 @@
     "f": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'",
     "f:w": "onchange '**/*.{ts,tsx,js}' -e '.next/**/*.js' -- prettier --config ./.prettierrc --write {{changed}}",
     "test": "jest --watch",
-    "test:coverage": "jest --collect-coverage",
-    "prisma:migrate:all": "prisma migrate dev --schema prisma/local.prisma --preview-feature && prisma migrate dev --schema prisma/prod.prisma --preview-feature",
-    "prisma:generate": "prisma generate --schema prisma/schema.prisma"
+    "test:c": "jest --collect-coverage",
+    "migrate": "prisma migrate dev --schema prisma/schema.prisma",
+    "generate": "prisma generate --schema prisma/schema.prisma"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",

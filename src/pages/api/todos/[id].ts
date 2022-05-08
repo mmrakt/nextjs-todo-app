@@ -8,20 +8,20 @@ const handler = async (
   const id = Number(req.query.id)
   switch (req.method) {
     case 'GET':
-      const task = await prisma.task.findFirst({
+      const todo = await prisma.todo.findFirst({
         where: { id },
       })
 
-      if (task) {
+      if (todo) {
         res.status(200).end()
       } else {
-        res.status(400).json({ debugMessage: `task [id=${id}] not found` })
+        res.status(400).json({ debugMessage: `todo [id=${id}] not found` })
       }
       break
     case 'PATCH':
       try {
         const value = JSON.parse(req.body)
-        await prisma.task.update({ where: { id }, data: value })
+        await prisma.todo.update({ where: { id }, data: value })
         res.status(200).end()
       } catch (error) {
         console.error(error)
@@ -30,7 +30,7 @@ const handler = async (
       break
     case 'DELETE':
       try {
-        await prisma.task.delete({ where: { id } })
+        await prisma.todo.delete({ where: { id } })
         res.status(200).end()
       } catch (error) {
         console.error(error)

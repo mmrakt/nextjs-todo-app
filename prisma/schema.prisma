@@ -7,10 +7,10 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:yagikiyoshi3@db.lkclqftrowgfdzrejkmx.supabase.co:5432/postgres"
 }
 
-model Task {
+model Todo {
   id        Int     @id @default(autoincrement())
   content   String
   isCompleted      Boolean @default(false)
@@ -59,7 +59,7 @@ model User {
   profile       String?
   accounts      Account[]
   sessions      Session[]
-  task          Task[]
+  todo          Todo[]
 }
 
 model VerificationToken {

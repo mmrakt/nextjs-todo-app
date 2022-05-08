@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import prisma, { Task } from '@/libs/prisma'
+import prisma, { Todo } from '@/libs/prisma'
 
 const handler = async (
   req: NextApiRequest,
@@ -9,9 +9,9 @@ const handler = async (
     const statusNum = Number(req.query.status)
     const isCompleted = statusNum === 1 ? true : false
     const userId = String(req.query.userId)
-    let tasks: Task[] = []
+    let todos: Todo[] = []
     if (isCompleted) {
-      tasks = await prisma.task.findMany({
+      todos = await prisma.todo.findMany({
         where: {
           isCompleted: {
             equals: isCompleted,
@@ -25,11 +25,11 @@ const handler = async (
         },
       })
     } else {
-      tasks = await prisma.$queryRaw`
+      todos = await prisma.$queryRaw`
           select
               *
           from
-              "public"."Task"
+              "public"."Todo"
           where
               "isCompleted" = ${isCompleted}
           and "userId" = ${userId}
@@ -42,15 +42,15 @@ const handler = async (
         `
     }
 
-    if (tasks) {
-      res.status(200).json(tasks)
+    if (todos) {
+      res.status(200).json(todos)
     } else {
       res.status(400).json({ debugMessage: 'There was no one...' })
     }
   } else if (req.method === 'POST') {
     try {
       const { content, userId } = JSON.parse(req.body)
-      await prisma.task.create({
+      await prisma.todo.create({
         data: {
           content,
           userId,

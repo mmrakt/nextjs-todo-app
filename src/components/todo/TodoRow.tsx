@@ -9,23 +9,27 @@ import {
   ModalBody,
   useDisclosure,
 } from '@chakra-ui/react'
-import dayjs from 'dayjs'
 import React from 'react'
-import { useQueryClient, useMutation } from 'react-query'
-import { useMutate } from '../../hooks/useMutate'
 import Button from '../common/Button'
 import CircleCheckbox from '../common/CircleCheckbox'
+import { Todo } from '@/libs/prisma'
 
 type IProps = {
-  id: number
-  content: string
-  isCompleted: boolean
+  handleDelete: (todo: Todo) => void
+  handleUpdateStatus: (todo: Todo) => void
+  handleUpdateContent: (todo: Todo, content: string) => void
+  todo: Todo
 }
 
-function Row({ id, content, isCompleted }: IProps): any {
+function TodoRow({
+  handleDelete,
+  handleUpdateStatus,
+  handleUpdateContent,
+  todo,
+}: IProps): any {
+  const { id, content, isCompleted } = todo
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [editingContent, setEditingContent] = React.useState(content)
-  const queryClient = useQueryClient()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEditingContent(e.target.value)
@@ -36,65 +40,29 @@ function Row({ id, content, isCompleted }: IProps): any {
       editingContent !== '' &&
       !(e.nativeEvent as any).isComposing
     ) {
-      updateContent()
+      onUpdateContent()
       onClose()
     }
   }
   const handleClick = async (e: React.MouseEvent<HTMLInputElement>) => {
     if (editingContent !== '' && !(e.nativeEvent as any).isComposing) {
-      updateContent()
+      onUpdateContent()
       onClose()
     }
   }
 
-  const handleStatusMutate = () => {
-    // タスクが完了済みの場合はnullにする
-    const completedAt = isCompleted ? null : dayjs().format()
-    updateStatusMutate(completedAt)
-  }
-
-  const { mutate: updateStatusMutate } = useMutation(
-    (completedAt: string) =>
-      fetch(`api/tasks/${id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({
-          isCompleted: !isCompleted,
-          completedAt,
-        }),
-      }),
-    {
-      onSuccess: () => {
-        queryClient.resetQueries('tasks')
-        queryClient.resetQueries('completedTasks')
-      },
-    }
-  )
-
-  const updateContent = () => {
-    updateContentMutate()
+  const onUpdateContent = () => {
+    handleUpdateContent(todo, editingContent)
     setEditingContent(editingContent)
   }
 
-  const { mutate: updateContentMutate } = useMutate({
-    path: `api/tasks/${id}`,
-    method: 'PATCH',
-    body: JSON.stringify({
-      content: editingContent,
-    }),
-    keys: 'tasks',
-  })
+  const onUpdateStatus = () => {
+    handleUpdateStatus(todo)
+  }
 
-  const { mutate: deleteUncompletedMutate } = useMutate({
-    path: `api/tasks/${id}`,
-    method: 'DELETE',
-    keys: 'tasks',
-  })
-
-  const { mutate: deleteCompletedMutate } = useMutate({
-    path: `api/tasks/${id}`,
-    method: 'DELETE',
-    keys: 'completedTasks',
-  })
+  const onDelete = () => {
+    handleDelete(todo)
+  }
 
   return (
     <>
@@ -134,12 +102,7 @@ function Row({ id, content, isCompleted }: IProps): any {
           ) : (
             <></>
           )}
-          <CircleCheckbox
-            isCompleted={isCompleted}
-            onClick={() => {
-              handleStatusMutate()
-            }}
-          />
+          <CircleCheckbox isCompleted={isCompleted} onClick={onUpdateStatus} />
           {isCompleted ? (
             <>
               <div className="ml-3 text-xl w-full" onClick={onOpen}>
@@ -158,9 +121,7 @@ function Row({ id, content, isCompleted }: IProps): any {
           <button
             type="button"
             className="hover:bg-neutral-600 active:animate-ping active:animation-delay-500"
-            onClick={() => {
-              isCompleted ? deleteCompletedMutate() : deleteUncompletedMutate()
-            }}
+            onClick={onDelete}
           >
             <DeleteIcon className="p-1" boxSize={6} />
           </button>
@@ -171,4 +132,4 @@ function Row({ id, content, isCompleted }: IProps): any {
   )
 }
 
-export default Row
+export default TodoRow

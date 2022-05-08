@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Layout from '../../components/Layout'
-import TodoContainer from '@/components/task/Container'
+import TodoContainer from '@/components/todo/Container'
 
 function Today(): React.ReactElement {
   return (
