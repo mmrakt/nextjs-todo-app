@@ -29,6 +29,7 @@ function TodoRow({
 }: IProps): any {
   const { id, content, isCompleted } = todo
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [displayContent, setDisplayContent] = React.useState(content)
   const [editingContent, setEditingContent] = React.useState(content)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -51,8 +52,19 @@ function TodoRow({
     }
   }
 
+  const handleOpen = () => {
+    setEditingContent(displayContent)
+    onOpen()
+  }
+
+  const handleClose = () => {
+    setEditingContent(displayContent)
+    onClose()
+  }
+
   const onUpdateContent = () => {
     handleUpdateContent(todo, editingContent)
+    setDisplayContent(editingContent)
     setEditingContent(editingContent)
   }
 
@@ -69,7 +81,7 @@ function TodoRow({
       <ListItem>
         <div className="flex items-center my-3">
           {isOpen ? (
-            <Modal isOpen={isOpen} onClose={onClose} size="3xl" isCentered>
+            <Modal isOpen={isOpen} onClose={handleClose} size="3xl" isCentered>
               <ModalOverlay />
               <ModalContent bg="dark.800" className="p-5">
                 <ModalBody>
@@ -90,7 +102,7 @@ function TodoRow({
                       />
                       <Button
                         text="Cancel"
-                        onClick={onClose}
+                        onClick={handleClose}
                         className="border-2 ml-5"
                         bgColor="blackAlpha"
                       />
@@ -105,16 +117,16 @@ function TodoRow({
           <CircleCheckbox isCompleted={isCompleted} onClick={onUpdateStatus} />
           {isCompleted ? (
             <>
-              <div className="ml-3 text-xl w-full" onClick={onOpen}>
+              <div className="ml-3 text-xl w-full" onClick={handleOpen}>
                 <span className="line-through text-neutral-500">
-                  {editingContent}
+                  {displayContent}
                 </span>
               </div>
             </>
           ) : (
             <>
-              <div className="ml-3 text-xl w-full" onClick={onOpen}>
-                {editingContent}
+              <div className="ml-3 text-xl w-full" onClick={handleOpen}>
+                {displayContent}
               </div>
             </>
           )}

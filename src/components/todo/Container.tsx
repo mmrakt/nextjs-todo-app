@@ -13,10 +13,10 @@ function TodoContainer(): React.ReactElement {
   return (
     <div>
       <InputText />
-      <div className="mt-10">
-        <TodoList userId={id} />
-      </div>
-      <div className="mt-10">{/* <CompletedList userId={id} /> */}</div>
+      <div className="mt-10" />
+      <TodoList userId={id} />
+      <div className="mt-10" />
+      {/* <CompletedList userId={id} /> */}
     </div>
   )
 }

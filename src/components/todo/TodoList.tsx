@@ -1,12 +1,18 @@
 import { List as ChakraUiList } from '@chakra-ui/react'
 import dayjs from 'dayjs'
 import React from 'react'
+import { UseQueryResult } from 'react-query'
 import Row from './TodoRow'
 import { useFetchTodos, useDeleteTodo, useUpdateTodo } from '@/hooks/todo'
 import { Todo } from '@/libs/prisma'
 
-function TodoList({ userId }: { userId: string }): any {
-  const { data: todos, isError, isLoading } = useFetchTodos(userId)
+type IProps = {
+  query: UseQueryResult<Todo[]>
+  userId: string
+}
+
+const TodoList: React.VFC<IProps> = ({ query, userId }): any => {
+  const { data: todos, isLoading, isError } = query
   const updateTodoMutation = useUpdateTodo()
   const deleteTodoMutation = useDeleteTodo()
 
@@ -30,10 +36,11 @@ function TodoList({ userId }: { userId: string }): any {
 
   return (
     <ChakraUiList>
-      {todos.map((todo, index) => (
+      {/* NOTE: keyにindexを渡すと追加時にキャッシュがうまく更新されない */}
+      {todos.map((todo, i) => (
         <Row
           data-testid="todoItem"
-          key={index}
+          key={todo.id}
           handleDelete={handleDelete}
           handleUpdateContent={handleUpdateContent}
           handleUpdateStatus={handleUpdateStatus}

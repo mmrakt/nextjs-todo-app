@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query'
+import { STATUSES } from '../../constants/index'
 import { Todo } from '@/libs/prisma'
 
 const useDeleteTodo = () => {
@@ -11,9 +12,15 @@ const useDeleteTodo = () => {
     {
       onSuccess: (data, variables) => {
         if (variables.isCompleted) {
-          queryClient.invalidateQueries('completedTodos')
+          queryClient.invalidateQueries([
+            'todos',
+            { status: STATUSES['isCompleted'] },
+          ])
         } else {
-          queryClient.invalidateQueries('todos')
+          queryClient.invalidateQueries([
+            'todos',
+            { status: STATUSES['isNotCompleted'] },
+          ])
         }
       },
     }
