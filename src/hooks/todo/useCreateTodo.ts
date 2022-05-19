@@ -19,7 +19,7 @@ const useCreateTodo = () => {
       }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('todos')
+        queryClient.invalidateQueries(['todos'])
       },
     }
   )

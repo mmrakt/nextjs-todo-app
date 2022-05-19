@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query'
+import { STATUSES } from '@/constants'
 import { Todo } from '@/libs/prisma'
 
 const useUpdateTodo = () => {
@@ -40,8 +41,15 @@ const useUpdateTodo = () => {
           context ? context.previousTodos : context
         )
       },
-      onSuccess: (data, variables) => {
-        queryClient.setQueryData(['todos', { id: variables.id }], data)
+      onSuccess: () => {
+        queryClient.invalidateQueries([
+          'todos',
+          { status: STATUSES['isCompleted'] },
+        ])
+        queryClient.invalidateQueries([
+          'todos',
+          { status: STATUSES['isNotCompleted'] },
+        ])
       },
     }
   )

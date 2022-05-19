@@ -13,9 +13,8 @@ const useCheckSession = () => {
     return null
   }
 
-  return {
-    authStatus: true,
-    user: session?.user,
+  if (status === 'authenticated') {
+    return session.user
   }
 }
 
