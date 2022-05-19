@@ -34,7 +34,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         />
       </Head>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <ChakraProvider theme={chakuraUiTheme}>
           <SessionProvider session={session}>
             <NextNprogress />

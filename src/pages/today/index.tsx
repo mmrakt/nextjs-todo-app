@@ -5,8 +5,12 @@ import TodoContainer from '../../components/todo/TodoContainer'
 import useCheckSession from '../../hooks/useCheckSession'
 
 const Today: React.VFC = () => {
-  const result = useCheckSession()
-  if (result === null) return null
+  // const result = useCheckSession()
+  // if (result === null) return null
+
+  const result = {
+    id: 'cl2myuo0x00297kiby38pl87e',
+  }
 
   return (
     <Layout>

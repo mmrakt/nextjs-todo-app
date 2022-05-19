@@ -3,6 +3,7 @@ import React from 'react'
 
 import InputText from '../../components/todo/InputText'
 import TodoList from '../../components/todo/TodoList'
+import Header from './Header'
 import { useFetchTodos } from '@/hooks/todo'
 
 const TodoContainer: React.VFC<Pick<Session, 'user'>> = ({ user }) => {
@@ -10,6 +11,8 @@ const TodoContainer: React.VFC<Pick<Session, 'user'>> = ({ user }) => {
 
   return (
     <>
+      <Header />
+      <div className="mt-3" />
       <InputText />
       {queryResults.map((query, i) => (
         <div className="mt-10" key={i}>

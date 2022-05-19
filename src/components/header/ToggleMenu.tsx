@@ -1,15 +1,10 @@
-import { Avatar, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import { Avatar, Menu, MenuButton, MenuList } from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
-import Image from 'next/image'
 import Link from 'next/link'
-import router, { useRouter } from 'next/router'
-import React, { FC } from 'react'
-
-const StyledMenuItem = ({ text }) => (
-  <MenuItem bg="dark.800" _hover={{ background: 'dark.700' }}>
-    {text}
-  </MenuItem>
-)
+import { useRouter } from 'next/router'
+import React from 'react'
+import AvatarImage from '../common/AvatarImage'
+import DropdownMenuItem from '../common/DropdownMenuItem'
 
 const ToggleMenu = React.memo(() => {
   const { data: session }: any = useSession()
@@ -25,46 +20,38 @@ const ToggleMenu = React.memo(() => {
     <Menu autoSelect={false}>
       <MenuButton
         as={Avatar}
-        icon={
-          <Image
-            src={session?.user?.image || '/avatar.png'}
-            alt="avatar image"
-            width={50}
-            height={50}
-            className="rounded-full"
-          />
-        }
+        icon={<AvatarImage imageSrc={session?.user?.image} />}
       />
       <MenuList bg="dark.800" borderColor="dark.700">
         {session?.user ? (
-          <div>
+          <>
             <Link href="/today">
               <a>
-                <StyledMenuItem text="TODO" />
+                <DropdownMenuItem displayText="TODO" />
               </a>
             </Link>
             <Link href="/settings">
               <a>
-                <StyledMenuItem text="Settings" />
+                <DropdownMenuItem displayText="Settings" />
               </a>
             </Link>
             <div onClick={handleSignout}>
-              <StyledMenuItem text="Sign out" />
+              <DropdownMenuItem displayText="Sign out" />
             </div>
-          </div>
+          </>
         ) : (
-          <div>
+          <>
             <Link href="/signin">
               <a>
-                <StyledMenuItem text="Sign in" />
+                <DropdownMenuItem displayText="Sign in" />
               </a>
             </Link>
             <Link href="/signup">
               <a>
-                <StyledMenuItem text="Sign up" />
+                <DropdownMenuItem displayText="Sign up" />
               </a>
             </Link>
-          </div>
+          </>
         )}
       </MenuList>
     </Menu>
