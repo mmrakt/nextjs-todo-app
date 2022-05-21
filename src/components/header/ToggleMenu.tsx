@@ -17,44 +17,48 @@ const ToggleMenu = React.memo(() => {
   }
 
   return (
-    <Menu autoSelect={false}>
-      <MenuButton
-        as={Avatar}
-        icon={<AvatarImage imageSrc={session?.user?.image} />}
-      />
-      <MenuList bg="dark.800" borderColor="dark.700">
-        {session?.user ? (
-          <>
-            <Link href="/today">
-              <a>
-                <DropdownMenuItem displayText="TODO" />
-              </a>
-            </Link>
-            <Link href="/settings">
-              <a>
-                <DropdownMenuItem displayText="Settings" />
-              </a>
-            </Link>
-            <div onClick={handleSignout}>
-              <DropdownMenuItem displayText="Sign out" />
-            </div>
-          </>
-        ) : (
-          <>
-            <Link href="/signin">
-              <a>
-                <DropdownMenuItem displayText="Sign in" />
-              </a>
-            </Link>
-            <Link href="/signup">
-              <a>
-                <DropdownMenuItem displayText="Sign up" />
-              </a>
-            </Link>
-          </>
-        )}
-      </MenuList>
-    </Menu>
+    <>
+      <div className="dropdown dropdown-end">
+        <label tabIndex={0}>
+          <AvatarImage imageSrc={session?.user?.image} />
+        </label>
+        <ul
+          tabIndex={0}
+          className="dropdown-content menu shadow bg-dark-800 rounded-box w-52"
+        >
+          {session?.user ? (
+            <>
+              <li className="hover:bg-dark-700">
+                <Link href="/today">
+                  <a>TODO</a>
+                </Link>
+              </li>
+              <li className="hover:bg-dark-700">
+                <Link href="/settings">
+                  <a>Settings</a>
+                </Link>
+              </li>
+              <li className="hover:bg-dark-700">
+                <div onClick={handleSignout}>Sign out</div>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="hover:bg-dark-700">
+                <Link href="/signin">
+                  <a>Sign in</a>
+                </Link>
+              </li>
+              <li className="hover:bg-dark-700">
+                <Link href="/signup">
+                  <a>Sign up</a>
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
+      </div>
+    </>
   )
 })
 
