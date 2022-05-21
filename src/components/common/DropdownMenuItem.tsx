@@ -1,16 +1,40 @@
-import { MenuItem } from '@chakra-ui/react'
+import Link from 'next/link'
 import React from 'react'
 
 type IProps = {
   displayText?: string
+  href?: string
+  onClick?: () => void
 }
 
-const DropdownMenuItem: React.VFC<IProps> = ({ displayText }) => {
-  return (
-    <MenuItem bg="dark.800" _hover={{ background: 'dark.700' }}>
-      {displayText}
-    </MenuItem>
-  )
+const DropdownMenuItem: React.VFC<IProps> = ({
+  displayText,
+  href,
+  onClick,
+}) => {
+  const items = () => {
+    if (href && onClick) {
+      return (
+        <Link href={href}>
+          <a>
+            <div onClick={onClick}>{displayText}</div>
+          </a>
+        </Link>
+      )
+    } else if (href) {
+      return (
+        <Link href={href}>
+          <a>{displayText}</a>
+        </Link>
+      )
+    } else if (onClick) {
+      return <div onClick={onClick}>{displayText}</div>
+    } else {
+      return <div>{displayText}</div>
+    }
+  }
+
+  return <li className="hover:bg-dark-700">{items()}</li>
 }
 
 export default DropdownMenuItem

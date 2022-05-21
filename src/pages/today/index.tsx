@@ -11,7 +11,6 @@ const Today: React.VFC = () => {
   const result = {
     id: 'cl2myuo0x00297kiby38pl87e',
   }
-
   return (
     <Layout>
       <TodoContainer user={result} />

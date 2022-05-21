@@ -28,32 +28,17 @@ const ToggleMenu = React.memo(() => {
         >
           {session?.user ? (
             <>
-              <li className="hover:bg-dark-700">
-                <Link href="/today">
-                  <a>TODO</a>
-                </Link>
-              </li>
-              <li className="hover:bg-dark-700">
-                <Link href="/settings">
-                  <a>Settings</a>
-                </Link>
-              </li>
-              <li className="hover:bg-dark-700">
-                <div onClick={handleSignout}>Sign out</div>
-              </li>
+              <DropdownMenuItem href="/today" displayText="TODO" />
+              <DropdownMenuItem href="/settings" displayText="Settings" />
+              <DropdownMenuItem
+                onClick={handleSignout}
+                displayText="Sign out"
+              />
             </>
           ) : (
             <>
-              <li className="hover:bg-dark-700">
-                <Link href="/signin">
-                  <a>Sign in</a>
-                </Link>
-              </li>
-              <li className="hover:bg-dark-700">
-                <Link href="/signup">
-                  <a>Sign up</a>
-                </Link>
-              </li>
+              <DropdownMenuItem href="/signin" displayText="Sign in" />
+              <DropdownMenuItem href="/signup" displayText="Sign up" />
             </>
           )}
         </ul>

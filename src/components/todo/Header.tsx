@@ -1,4 +1,5 @@
 import React from 'react'
+import DropdownMenuItem from '../common/DropdownMenuItem'
 
 const SettingIcon: React.VFC = () => {
   return (
@@ -33,12 +34,8 @@ const Header: React.VFC = () => {
             tabIndex={0}
             className="dropdown-content menu shadow bg-dark-800 rounded-box w-52"
           >
-            <li>
-              <div className="hover:bg-dark-700">hoge</div>
-            </li>
-            <li>
-              <div className="hover:bg-dark-700">hoge</div>
-            </li>
+            <DropdownMenuItem displayText="Show completed todos" />
+            <DropdownMenuItem displayText="fuga" />
           </ul>
         </div>
       </div>
