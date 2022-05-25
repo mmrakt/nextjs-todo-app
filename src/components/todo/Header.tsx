@@ -1,4 +1,6 @@
 import React from 'react'
+import { useQueryClient } from 'react-query'
+import useFilter from '../../hooks/todo/useFilter'
 import DropdownMenuItem from '../common/DropdownMenuItem'
 
 const SettingIcon: React.VFC = () => {
@@ -23,6 +25,13 @@ const SettingIcon: React.VFC = () => {
 }
 
 const Header: React.VFC = () => {
+  const queryClient = useQueryClient()
+  const { data } = useFilter()
+
+  const handleToggleFilterTodos = () => {
+    queryClient.setQueryData(['isShowCompleted'], data ? false : true)
+  }
+
   return (
     <>
       <div className="flex justify-end">
@@ -34,8 +43,17 @@ const Header: React.VFC = () => {
             tabIndex={0}
             className="dropdown-content menu shadow bg-dark-800 rounded-box w-52"
           >
-            <DropdownMenuItem displayText="Show completed todos" />
-            <DropdownMenuItem displayText="fuga" />
+            {data ? (
+              <DropdownMenuItem
+                displayText="Hide completed todos"
+                onClick={handleToggleFilterTodos}
+              />
+            ) : (
+              <DropdownMenuItem
+                displayText="Show completed todos"
+                onClick={handleToggleFilterTodos}
+              />
+            )}
           </ul>
         </div>
       </div>

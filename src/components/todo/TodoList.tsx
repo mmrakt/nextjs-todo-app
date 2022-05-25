@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import React from 'react'
 import { UseQueryResult } from 'react-query'
 import Row from './TodoRow'
-import { useFetchTodos, useDeleteTodo, useUpdateTodo } from '@/hooks/todo'
+import { useDeleteTodo, useUpdateTodo } from '@/hooks/todo'
 import { Todo } from '@/libs/prisma'
 
 type IProps = {
