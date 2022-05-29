@@ -8,7 +8,6 @@ import { useFetchTodos } from '@/hooks/todo'
 
 const TodoContainer: React.VFC<Pick<Session, 'user'>> = ({ user }) => {
   const queryResults = useFetchTodos(user.id)
-
   return (
     <>
       <Header />

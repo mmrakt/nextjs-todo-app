@@ -9,6 +9,9 @@ const handler = async (
     const statusNum = Number(req.query.status)
     const isCompleted = statusNum === 1 ? true : false
     const userId = String(req.query.userId)
+    const sortNum = Number(req.query.sort)
+    const isOldestSort = sortNum === 1 ? true : false
+
     let todos: Todo[] = []
     if (isCompleted) {
       todos = await prisma.todo.findMany({
@@ -25,21 +28,19 @@ const handler = async (
         },
       })
     } else {
-      todos = await prisma.$queryRaw`
-          select
-              *
-          from
-              "public"."Todo"
-          where
-              "isCompleted" = ${isCompleted}
-          and "userId" = ${userId}
-          order by
-              case
-                  when "completedAt" is null then "createdAt"
-                  else "completedAt"
-              end desc
-          ;
-        `
+      todos = await prisma.todo.findMany({
+        where: {
+          isCompleted: {
+            equals: isCompleted,
+          },
+          userId: {
+            equals: userId,
+          },
+        },
+        orderBy: {
+          createdAt: isOldestSort ? 'asc' : 'desc',
+        },
+      })
     }
 
     if (todos) {

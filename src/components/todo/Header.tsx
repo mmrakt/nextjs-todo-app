@@ -1,6 +1,8 @@
 import React from 'react'
 import { useQueryClient } from 'react-query'
+import { STATUSES } from '../../constants/index'
 import useFilter from '../../hooks/todo/useFilter'
+import useSort from '../../hooks/todo/useSort'
 import DropdownMenuItem from '../common/DropdownMenuItem'
 
 const SettingIcon: React.VFC = () => {
@@ -26,10 +28,19 @@ const SettingIcon: React.VFC = () => {
 
 const Header: React.VFC = () => {
   const queryClient = useQueryClient()
-  const { data } = useFilter()
+  const { data: isShowCompleted } = useFilter()
+  const { data: isLatestOrder } = useSort()
 
   const handleToggleFilterTodos = () => {
-    queryClient.setQueryData(['isShowCompleted'], data ? false : true)
+    queryClient.setQueryData(
+      ['isShowCompleted'],
+      isShowCompleted ? false : true
+    )
+  }
+
+  const handleToggleSortTodos = () => {
+    queryClient.setQueryData(['isLatestOrder'], isLatestOrder ? false : true)
+    queryClient.resetQueries(['todos', { status: STATUSES['isNotCompleted'] }])
   }
 
   return (
@@ -43,7 +54,7 @@ const Header: React.VFC = () => {
             tabIndex={0}
             className="dropdown-content menu shadow bg-dark-800 rounded-box w-52"
           >
-            {data ? (
+            {isShowCompleted ? (
               <DropdownMenuItem
                 displayText="Hide completed todos"
                 onClick={handleToggleFilterTodos}
@@ -52,6 +63,17 @@ const Header: React.VFC = () => {
               <DropdownMenuItem
                 displayText="Show completed todos"
                 onClick={handleToggleFilterTodos}
+              />
+            )}
+            {isLatestOrder ? (
+              <DropdownMenuItem
+                displayText="Sort by Oldest order"
+                onClick={handleToggleSortTodos}
+              />
+            ) : (
+              <DropdownMenuItem
+                displayText="Sort by Latest order"
+                onClick={handleToggleSortTodos}
               />
             )}
           </ul>
