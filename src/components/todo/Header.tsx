@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQueryClient } from 'react-query'
-import { STATUSES } from '../../constants/index'
+import { TODO_STATUSES } from '../../constants/index'
 import useFilter from '../../hooks/todo/useFilter'
 import useSort from '../../hooks/todo/useSort'
 import MenuItem from '../common/MenuItem'
@@ -40,7 +40,10 @@ const Header: React.VFC = () => {
 
   const handleToggleSortTodos = () => {
     queryClient.setQueryData(['isLatestOrder'], isLatestOrder ? false : true)
-    queryClient.resetQueries(['todos', { status: STATUSES['isNotCompleted'] }])
+    queryClient.resetQueries([
+      'todos',
+      { status: TODO_STATUSES['isNotCompleted'] },
+    ])
   }
 
   return (

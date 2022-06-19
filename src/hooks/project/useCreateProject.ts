@@ -6,7 +6,7 @@ type IProps = {
   userId: string
 }
 
-const useCreateTodo = () => {
+const useCreateProject = () => {
   const queryClient = useQueryClient()
   return useMutation(
     ({ content, userId }: IProps) =>
@@ -25,4 +25,4 @@ const useCreateTodo = () => {
   )
 }
 
-export { useCreateTodo }
+export { useCreateProject }

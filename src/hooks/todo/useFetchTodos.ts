@@ -1,6 +1,6 @@
 import { Todo } from '@prisma/client'
 import { useQueries, useQueryClient } from 'react-query'
-import { STATUSES, SORT } from '../../constants/index'
+import { TODO_STATUSES, TODO_SORT } from '../../constants/index'
 import useFilter from './useFilter'
 import useSort from './useSort'
 
@@ -12,20 +12,29 @@ const useFetchTodos = (userId: string) => {
   const queryKeyAndFunc = isShowCompleted
     ? [
         {
-          queryKey: ['todos', { status: STATUSES['isNotCompleted'] }, sortNum],
+          queryKey: [
+            'todos',
+            { status: TODO_STATUSES['isNotCompleted'] },
+            sortNum,
+          ],
           queryFn: () =>
-            fetchTodos(userId, STATUSES['isNotCompleted'], sortNum),
+            fetchTodos(userId, TODO_STATUSES['isNotCompleted'], sortNum),
         },
         {
-          queryKey: ['todos', { status: STATUSES['isCompleted'] }],
-          queryFn: () => fetchTodos(userId, STATUSES['isCompleted'], sortNum),
+          queryKey: ['todos', { status: TODO_STATUSES['isCompleted'] }],
+          queryFn: () =>
+            fetchTodos(userId, TODO_STATUSES['isCompleted'], sortNum),
         },
       ]
     : [
         {
-          queryKey: ['todos', { status: STATUSES['isNotCompleted'] }, sortNum],
+          queryKey: [
+            'todos',
+            { status: TODO_STATUSES['isNotCompleted'] },
+            sortNum,
+          ],
           queryFn: () =>
-            fetchTodos(userId, STATUSES['isNotCompleted'], sortNum),
+            fetchTodos(userId, TODO_STATUSES['isNotCompleted'], sortNum),
         },
       ]
 
