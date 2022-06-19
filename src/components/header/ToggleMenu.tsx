@@ -1,10 +1,8 @@
-import { Avatar, Menu, MenuButton, MenuList } from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import AvatarImage from '../common/AvatarImage'
-import DropdownMenuItem from '../common/DropdownMenuItem'
+import MenuItem from '../common/MenuItem'
 
 const ToggleMenu = React.memo(() => {
   const { data: session }: any = useSession()
@@ -28,17 +26,14 @@ const ToggleMenu = React.memo(() => {
         >
           {session?.user ? (
             <>
-              <DropdownMenuItem href="/today" displayText="TODO" />
-              <DropdownMenuItem href="/settings" displayText="Settings" />
-              <DropdownMenuItem
-                onClick={handleSignout}
-                displayText="Sign out"
-              />
+              <MenuItem href="/today" displayText="TODO" />
+              <MenuItem href="/settings" displayText="Settings" />
+              <MenuItem onClick={handleSignout} displayText="Sign out" />
             </>
           ) : (
             <>
-              <DropdownMenuItem href="/signin" displayText="Sign in" />
-              <DropdownMenuItem href="/signup" displayText="Sign up" />
+              <MenuItem href="/signin" displayText="Sign in" />
+              <MenuItem href="/signup" displayText="Sign up" />
             </>
           )}
         </ul>

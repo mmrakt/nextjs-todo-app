@@ -3,7 +3,7 @@ import { useQueryClient } from 'react-query'
 import { STATUSES } from '../../constants/index'
 import useFilter from '../../hooks/todo/useFilter'
 import useSort from '../../hooks/todo/useSort'
-import DropdownMenuItem from '../common/DropdownMenuItem'
+import MenuItem from '../common/MenuItem'
 
 const SettingIcon: React.VFC = () => {
   return (
@@ -55,23 +55,23 @@ const Header: React.VFC = () => {
             className="dropdown-content menu shadow bg-dark-800 rounded-box w-52"
           >
             {isShowCompleted ? (
-              <DropdownMenuItem
+              <MenuItem
                 displayText="Hide completed todos"
                 onClick={handleToggleFilterTodos}
               />
             ) : (
-              <DropdownMenuItem
+              <MenuItem
                 displayText="Show completed todos"
                 onClick={handleToggleFilterTodos}
               />
             )}
             {isLatestOrder ? (
-              <DropdownMenuItem
+              <MenuItem
                 displayText="Sort by Oldest order"
                 onClick={handleToggleSortTodos}
               />
             ) : (
-              <DropdownMenuItem
+              <MenuItem
                 displayText="Sort by Latest order"
                 onClick={handleToggleSortTodos}
               />

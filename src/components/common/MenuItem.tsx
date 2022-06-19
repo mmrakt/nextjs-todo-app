@@ -7,11 +7,7 @@ type IProps = {
   onClick?: () => void
 }
 
-const DropdownMenuItem: React.VFC<IProps> = ({
-  displayText,
-  href,
-  onClick,
-}) => {
+const MenuItem: React.VFC<IProps> = ({ displayText, href, onClick }) => {
   const items = () => {
     if (href && onClick) {
       return (
@@ -37,4 +33,4 @@ const DropdownMenuItem: React.VFC<IProps> = ({
   return <li className="hover:bg-dark-700">{items()}</li>
 }
 
-export default DropdownMenuItem
+export default MenuItem
