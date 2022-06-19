@@ -8,6 +8,7 @@ const Today: React.VFC = () => {
   // const result = useCheckSession()
   // if (result === null) return null
 
+  // TODO: 本番では差し替えておく
   const result = {
     id: 'cl2myuo0x00297kiby38pl87e',
   }

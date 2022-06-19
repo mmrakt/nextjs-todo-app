@@ -2,6 +2,7 @@ import { List as ChakraUiList } from '@chakra-ui/react'
 import dayjs from 'dayjs'
 import React from 'react'
 import { UseQueryResult } from 'react-query'
+import Loading from '../common/Loading'
 import Row from './TodoRow'
 import { useDeleteTodo, useUpdateTodo } from '@/hooks/todo'
 import { Todo } from '@/libs/prisma'
@@ -32,7 +33,7 @@ const TodoList: React.VFC<IProps> = ({ query, userId }): any => {
     deleteTodoMutation.mutate(todo)
   }
 
-  if (isLoading) return <span>Loading...</span>
+  if (isLoading) return <Loading />
 
   return (
     <ChakraUiList>
