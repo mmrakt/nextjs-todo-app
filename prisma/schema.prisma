@@ -16,6 +16,8 @@ model Todo {
   isCompleted      Boolean @default(false)
   user      User    @relation(fields: [userId], references: [id])
   userId    String    
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   completedAt DateTime?
@@ -72,11 +74,12 @@ model VerificationToken {
 }
 
 model Project {
-  id        Int  @id @default(autoincrement())
-  name      String
-  user      User    @relation(fields: [userId], references: [id])
-  userId    String    
+  id         Int  @id @default(autoincrement())
+  name       String
+  user       User    @relation(fields: [userId], references: [id])
+  userId     String    
+  todo       Todo[]
   isArchived Boolean @default(false)
-  createdAt DateTime @default(now())
+  createdAt  DateTime @default(now())
   archivedAt DateTime?
 }

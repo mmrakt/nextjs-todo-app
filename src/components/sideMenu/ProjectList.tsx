@@ -1,4 +1,5 @@
 import { Project } from '@prisma/client'
+import Link from 'next/link'
 import React from 'react'
 import { UseQueryResult } from 'react-query'
 import Loading from '../common/Loading'
@@ -18,7 +19,9 @@ const ProjectList: React.VFC<IProps> = ({ query }) => {
           key={project.id}
           className="hover:bg-dark-700 p-3 rounded-md text-lg"
         >
-          {project.name}
+          <Link href={`/${project.id}`}>
+            <a>{project.name}</a>
+          </Link>
         </li>
       ))}
     </ul>

@@ -26,7 +26,11 @@ const SettingIcon: React.VFC = () => {
   )
 }
 
-const Header: React.VFC = () => {
+type IProps = {
+  pageTitle?: string
+}
+
+const Header: React.VFC<IProps> = ({ pageTitle }) => {
   const queryClient = useQueryClient()
   const { data: isShowCompleted } = useFilter()
   const { data: isLatestOrder } = useSort()
@@ -48,8 +52,11 @@ const Header: React.VFC = () => {
 
   return (
     <>
-      <div className="flex justify-end">
-        <div className="dropdown dropdown-end">
+      <div className="flex">
+        <div className="font-bold text-2xl">
+          {pageTitle ? pageTitle : 'Inbox'}
+        </div>
+        <div className="ml-auto dropdown dropdown-end">
           <label tabIndex={0}>
             <SettingIcon />
           </label>

@@ -1,3 +1,4 @@
+import { Project } from '@prisma/client'
 import { Session } from 'next-auth'
 import React from 'react'
 
@@ -6,11 +7,16 @@ import TodoList from '../../components/todo/TodoList'
 import Header from './Header'
 import { useFetchTodos } from '@/hooks/todo'
 
-const TodoContainer: React.VFC<Pick<Session, 'user'>> = ({ user }) => {
+type IProps = {
+  project?: Project
+  user: Session['user']
+}
+
+const TodoContainer: React.VFC<IProps> = ({ project, user }) => {
   const queryResults = useFetchTodos('cl2myuo0x00297kiby38pl87e')
   return (
     <>
-      <Header />
+      <Header pageTitle={project?.name} />
       <div className="mt-3" />
       <InputText />
       {queryResults.map((query, i) => (

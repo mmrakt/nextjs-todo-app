@@ -8,20 +8,24 @@ const handler = async (
   const id = Number(req.query.id)
   switch (req.method) {
     case 'GET':
-      const todo = await prisma.todo.findFirst({
-        where: { id },
+      const project = await prisma.project.findFirst({
+        where: {
+          id: {
+            equals: id,
+          },
+        },
       })
 
-      if (todo) {
-        res.status(200).end()
+      if (project) {
+        res.status(200).json(project)
       } else {
-        res.status(400).json({ debugMessage: `todo [id=${id}] not found` })
+        res.status(400).json({ debugMessage: `project [id=${id}] not found` })
       }
       break
     case 'PATCH':
       try {
         const value = JSON.parse(req.body)
-        await prisma.todo.update({ where: { id }, data: value })
+        await prisma.project.update({ where: { id }, data: value })
         res.status(200).end()
       } catch (error) {
         console.error(error)
@@ -30,7 +34,7 @@ const handler = async (
       break
     case 'DELETE':
       try {
-        await prisma.todo.delete({ where: { id } })
+        await prisma.project.delete({ where: { id } })
         res.status(200).end()
       } catch (error) {
         console.error(error)

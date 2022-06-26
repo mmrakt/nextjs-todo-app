@@ -23,7 +23,7 @@ const SigninConatiner = ({
   if (status === 'loading') return null
 
   if (status === 'authenticated') {
-    router.push('/today')
+    router.push('/inbox')
     return null
   }
 

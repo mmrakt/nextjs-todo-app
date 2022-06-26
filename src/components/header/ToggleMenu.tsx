@@ -26,7 +26,7 @@ const ToggleMenu = React.memo(() => {
         >
           {session?.user ? (
             <>
-              <MenuItem href="/today" displayText="TODO" />
+              <MenuItem href="/inbox" displayText="TODO" />
               <MenuItem href="/settings" displayText="Settings" />
               <MenuItem onClick={handleSignout} displayText="Sign out" />
             </>
