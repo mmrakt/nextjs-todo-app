@@ -18,9 +18,9 @@ function Layout(props: LayoutProps): React.ReactElement {
         </main>
       </MediaQuery>
       <MediaQuery minWidth={1001}>
-        <div className="flex">
+        <div className="flex h-screen">
           <SideMenu />
-          <main className="flex-auto">
+          <main className="flex-auto h-full">
             <div className="py-10 max-w-2xl mx-auto">{props.children}</div>
           </main>
         </div>

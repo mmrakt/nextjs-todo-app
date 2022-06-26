@@ -7,7 +7,7 @@ import Header from './Header'
 import { useFetchTodos } from '@/hooks/todo'
 
 const TodoContainer: React.VFC<Pick<Session, 'user'>> = ({ user }) => {
-  const queryResults = useFetchTodos(user.id)
+  const queryResults = useFetchTodos('cl2myuo0x00297kiby38pl87e')
   return (
     <>
       <Header />
