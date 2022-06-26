@@ -1,4 +1,4 @@
-// export { useCreateProject } from './useCreateProejct'
-// export { useDeleteProject } from './useDeleteProejct'
-// export { useFetchProjects } from './useFetchProejcts'
+export { useCreateProject } from './useCreateProject'
+// export { useDeleteProject } from './useDelete'
+export { useFetchProjects } from './useFetchProjects'
 // export { useUpdateProject } from './useUpdateProejct'

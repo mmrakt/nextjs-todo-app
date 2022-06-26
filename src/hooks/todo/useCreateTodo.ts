@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from 'react-query'
-import { TODO_STATUSES } from '../../constants/index'
 
 type IProps = {
   content: string

@@ -1,12 +1,12 @@
-import { Todo } from '@prisma/client'
+import { Project } from '@prisma/client'
 import { useQueries } from 'react-query'
 import { PROJECT_STATUSES } from '../../constants/index'
-import useFilter from './useFIlter'
+import useFilter from './useFilter'
 
-const useFetchTodos = (userId: string) => {
-  const { data: isShowCompleted } = useFilter()
+const useFetchProjects = (userId: string) => {
+  const { data: isShowArchived } = useFilter()
 
-  const queryKeyAndFunc = isShowCompleted
+  const queryKeyAndFunc = isShowArchived
     ? [
         {
           queryKey: ['projects', { status: PROJECT_STATUSES['isNotArchived'] }],
@@ -32,9 +32,10 @@ const useFetchTodos = (userId: string) => {
 const fetchProjects = async (
   userId: string,
   status: number
-): Promise<Todo[]> => {
+): Promise<Project[]> => {
   const res = await fetch(`/api/projects?status=${status}&userId=${userId}`)
+
   return res.json()
 }
 
-export { useFetchTodos }
+export { useFetchProjects }

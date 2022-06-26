@@ -7,9 +7,14 @@ const handler = async (
 ): Promise<void> => {
   if (req.method === 'GET') {
     const userId = String(req.query.userId)
+    const statusNum = Number(req.query.status)
+    const isArchived = statusNum === 1 ? true : false
 
     const projects: Project[] = await prisma.project.findMany({
       where: {
+        isArchived: {
+          equals: isArchived,
+        },
         userId: {
           equals: userId,
         },

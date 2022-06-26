@@ -1,25 +1,24 @@
 import { useMutation, useQueryClient } from 'react-query'
-import { TODO_STATUSES } from '../../constants/index'
 
 type IProps = {
-  content: string
+  name: string
   userId: string
 }
 
 const useCreateProject = () => {
   const queryClient = useQueryClient()
   return useMutation(
-    ({ content, userId }: IProps) =>
-      fetch('/api/todos', {
+    ({ name, userId }: IProps) =>
+      fetch('/api/projects', {
         method: 'POST',
         body: JSON.stringify({
-          content,
+          name,
           userId,
         }),
       }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['todos'])
+        queryClient.invalidateQueries(['projects'])
       },
     }
   )
