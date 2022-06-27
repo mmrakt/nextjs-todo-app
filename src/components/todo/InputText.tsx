@@ -4,7 +4,11 @@ import { useForm } from 'react-hook-form'
 import { InputField } from '@/components/common/InputField'
 import { useCreateTodo } from '@/hooks/todo'
 
-function InputText(): any {
+type IProps = {
+  projectId?: number
+}
+
+const InputText: React.VFC<IProps> = ({ projectId }) => {
   const { data: session, status } = useSession()
   const { register, handleSubmit, reset } = useForm()
   const createTodoMutation = useCreateTodo()
@@ -12,7 +16,7 @@ function InputText(): any {
 
   const onSubmit = async ({ content }) => {
     if (content !== '') {
-      createTodoMutation.mutate({ content, userId })
+      createTodoMutation.mutate({ content, userId, projectId })
       reset()
     }
   }

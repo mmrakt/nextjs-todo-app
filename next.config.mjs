@@ -28,7 +28,7 @@ const config = {
     return [
       {
         source: '/',
-        destination: '/today',
+        destination: '/inbox',
         permanent: true,
       },
     ]

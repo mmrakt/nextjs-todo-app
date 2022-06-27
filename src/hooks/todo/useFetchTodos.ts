@@ -4,7 +4,12 @@ import { TODO_STATUSES, TODO_SORT } from '../../constants/index'
 import useFilter from './useFilter'
 import useSort from './useSort'
 
-const useFetchTodos = (userId: string) => {
+type IProps = {
+  userId: string
+  projectId?: number
+}
+
+const useFetchTodos = ({ userId, projectId = 0 }: IProps) => {
   const { data: isShowCompleted } = useFilter()
   const { data: isLatestOrder } = useSort()
   const sortNum = isLatestOrder ? 0 : 1
@@ -18,12 +23,22 @@ const useFetchTodos = (userId: string) => {
             sortNum,
           ],
           queryFn: () =>
-            fetchTodos(userId, TODO_STATUSES['isNotCompleted'], sortNum),
+            fetchTodos(
+              userId,
+              TODO_STATUSES['isNotCompleted'],
+              sortNum,
+              projectId
+            ),
         },
         {
           queryKey: ['todos', { status: TODO_STATUSES['isCompleted'] }],
           queryFn: () =>
-            fetchTodos(userId, TODO_STATUSES['isCompleted'], sortNum),
+            fetchTodos(
+              userId,
+              TODO_STATUSES['isCompleted'],
+              sortNum,
+              projectId
+            ),
         },
       ]
     : [
@@ -34,7 +49,12 @@ const useFetchTodos = (userId: string) => {
             sortNum,
           ],
           queryFn: () =>
-            fetchTodos(userId, TODO_STATUSES['isNotCompleted'], sortNum),
+            fetchTodos(
+              userId,
+              TODO_STATUSES['isNotCompleted'],
+              sortNum,
+              projectId
+            ),
         },
       ]
 
@@ -44,10 +64,11 @@ const useFetchTodos = (userId: string) => {
 const fetchTodos = async (
   userId: string,
   status: number,
-  sort: number
+  sort: number,
+  projectId?: number
 ): Promise<Todo[]> => {
   const res = await fetch(
-    `/api/todos?status=${status}&userId=${userId}&sort=${sort}`
+    `/api/todos?status=${status}&userId=${userId}&projectId=${projectId}&sort=${sort}`
   )
   return res.json()
 }

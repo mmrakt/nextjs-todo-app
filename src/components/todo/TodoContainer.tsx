@@ -13,12 +13,15 @@ type IProps = {
 }
 
 const TodoContainer: React.VFC<IProps> = ({ project, user }) => {
-  const queryResults = useFetchTodos('cl2myuo0x00297kiby38pl87e')
+  const queryResults = useFetchTodos({
+    userId: 'cl2myuo0x00297kiby38pl87e',
+    projectId: project?.id,
+  })
   return (
     <>
       <Header pageTitle={project?.name} />
       <div className="mt-3" />
-      <InputText />
+      <InputText projectId={project?.id} />
       {queryResults.map((query, i) => (
         <div className="mt-10" key={i}>
           <TodoList query={query} userId={user.id} />

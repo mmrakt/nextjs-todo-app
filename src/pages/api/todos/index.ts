@@ -5,15 +5,19 @@ const handler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  if (req.method === 'GET') {
-    const statusNum = Number(req.query.status)
+  const { query, method, body } = req
+
+  if (method === 'GET') {
+    const statusNum = Number(query.status)
     const isCompleted = statusNum === 1 ? true : false
-    const userId = String(req.query.userId)
-    const sortNum = Number(req.query.sort)
+    const userId = String(query.userId)
+    const projectId = Number(query.projectId)
+    const sortNum = Number(query.sort)
     const isOldestSort = sortNum === 1 ? true : false
 
     let todos: Todo[] = []
     if (isCompleted) {
+      // TODO: projectId = 0の時のハンドリング
       todos = await prisma.todo.findMany({
         where: {
           isCompleted: {
@@ -21,6 +25,9 @@ const handler = async (
           },
           userId: {
             equals: userId,
+          },
+          projectId: {
+            equals: projectId,
           },
         },
         orderBy: {
@@ -36,6 +43,9 @@ const handler = async (
           userId: {
             equals: userId,
           },
+          projectId: {
+            equals: projectId,
+          },
         },
         orderBy: {
           createdAt: isOldestSort ? 'asc' : 'desc',
@@ -48,15 +58,15 @@ const handler = async (
     } else {
       res.status(400).json({ debugMessage: 'There was no one...' })
     }
-  } else if (req.method === 'POST') {
+  } else if (method === 'POST') {
     try {
-      const { content, userId } = JSON.parse(req.body)
-      await prisma.todo.create({
-        data: {
-          content,
-          userId,
-        },
-      })
+      const { content, userId, projectId } = JSON.parse(body)
+      const data = {
+        content,
+        userId,
+        projectId: projectId ? projectId : null,
+      }
+      await prisma.todo.create({ data })
       res.status(200).end()
     } catch (error) {
       console.error(error)
