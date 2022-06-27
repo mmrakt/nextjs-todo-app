@@ -1,15 +1,8 @@
-import { Avatar, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
-import Image from 'next/image'
-import Link from 'next/link'
-import router, { useRouter } from 'next/router'
-import React, { FC } from 'react'
-
-const StyledMenuItem = ({ text }) => (
-  <MenuItem bg="dark.gray" _hover={{ background: 'dark.lightGray' }}>
-    {text}
-  </MenuItem>
-)
+import { useRouter } from 'next/router'
+import React from 'react'
+import AvatarImage from '../common/AvatarImage'
+import MenuItem from '../common/MenuItem'
 
 const ToggleMenu = React.memo(() => {
   const { data: session }: any = useSession()
@@ -22,47 +15,30 @@ const ToggleMenu = React.memo(() => {
   }
 
   return (
-    <Menu autoSelect={false}>
-      <MenuButton
-        as={Avatar}
-        icon={
-          <Image
-            src={session?.user?.image || '/avatar.png'}
-            alt="avatar image"
-            width={50}
-            height={50}
-            className="rounded-full"
-          />
-        }
-      />
-      <MenuList bg="dark.gray" borderColor="dark.lightGray">
-        {session?.user ? (
-          <div>
-            <Link href="/settings">
-              <a>
-                <StyledMenuItem text="Settings" />
-              </a>
-            </Link>
-            <div onClick={handleSignout}>
-              <StyledMenuItem text="Sign out" />
-            </div>
-          </div>
-        ) : (
-          <div>
-            <Link href="/signin">
-              <a>
-                <StyledMenuItem text="Sign in" />
-              </a>
-            </Link>
-            <Link href="/signup">
-              <a>
-                <StyledMenuItem text="Sign up" />
-              </a>
-            </Link>
-          </div>
-        )}
-      </MenuList>
-    </Menu>
+    <>
+      <div className="dropdown dropdown-end">
+        <label tabIndex={0}>
+          <AvatarImage imageSrc={session?.user?.image} />
+        </label>
+        <ul
+          tabIndex={0}
+          className="dropdown-content menu shadow bg-dark-800 rounded-box w-52"
+        >
+          {session?.user ? (
+            <>
+              <MenuItem href="/inbox" displayText="TODO" />
+              <MenuItem href="/settings" displayText="Settings" />
+              <MenuItem onClick={handleSignout} displayText="Sign out" />
+            </>
+          ) : (
+            <>
+              <MenuItem href="/signin" displayText="Sign in" />
+              <MenuItem href="/signup" displayText="Sign up" />
+            </>
+          )}
+        </ul>
+      </div>
+    </>
   )
 })
 

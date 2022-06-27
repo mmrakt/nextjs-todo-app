@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { useMutate } from '../useMutate'
-import { QueryKeysTypes } from '@/constants/queryKeys'
+import { QueryKeysTypes } from '@/constants'
 
 describe('useMutate', () => {
   test('return useMutation', () => {

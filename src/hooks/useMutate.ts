@@ -1,5 +1,5 @@
 import { UseMutationResult, useMutation, useQueryClient } from 'react-query'
-import { QueryKeysTypes } from '../constants/queryKeys'
+import { QueryKeysTypes } from '../constants'
 
 type IProps = {
   path: string

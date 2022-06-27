@@ -5,6 +5,7 @@ import Head from 'next/head'
 import NextNprogress from 'nextjs-progressbar'
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import chakuraUiTheme from '../theme/chakraUiTheme'
 import 'minireset.css'
@@ -33,6 +34,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         />
       </Head>
       <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
         <ChakraProvider theme={chakuraUiTheme}>
           <SessionProvider session={session}>
             <NextNprogress />

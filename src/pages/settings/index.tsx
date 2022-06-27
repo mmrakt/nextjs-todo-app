@@ -1,3 +1,4 @@
+import { useToast, UseToastOptions } from '@chakra-ui/react'
 import { User } from 'next-auth'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -34,6 +35,7 @@ function Settings(): React.ReactElement {
   })
   const queryClient = useQueryClient()
   const router = useRouter()
+  const toast = useToast()
 
   React.useEffect(() => {
     setValue('name', session?.user.name)
@@ -59,10 +61,24 @@ function Settings(): React.ReactElement {
     try {
       await updateUserInfoMutate({ name, profile })
       await updateUserInfoOnLocalStorage({ name, profile })
+      toast({
+        title: 'Success!',
+        position: 'top-left',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
     } catch (error) {
       console.error(error)
+      toast({
+        title: 'Error',
+        position: 'top-left',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
     } finally {
-      router.push(`/settings/${userInfo?.id}`)
+      router.push('/settings')
     }
   }
 

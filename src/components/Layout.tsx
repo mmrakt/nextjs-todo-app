@@ -1,5 +1,7 @@
 import React from 'react'
 
+import MediaQuery from 'react-responsive'
+import SideMenu from './SideMenu'
 import Header from './header/index'
 
 type LayoutProps = {
@@ -8,11 +10,21 @@ type LayoutProps = {
 
 function Layout(props: LayoutProps): React.ReactElement {
   return (
-    <div className="flex-grow dark:text-white dark:bg-dark-black bg-gray-100 h-screen">
+    <div className="flex-grow dark:text-white dark:bg-dark-850 bg-gray-100 h-screen">
       <Header />
-      <main className="pc:py-10 py-6">
-        <div className="max-w-2xl mx-auto">{props.children}</div>
-      </main>
+      <MediaQuery maxWidth={1000}>
+        <main className="py-6">
+          <div className="max-w-2xl mx-auto">{props.children}</div>
+        </main>
+      </MediaQuery>
+      <MediaQuery minWidth={1001}>
+        <div className="flex h-screen">
+          <SideMenu />
+          <main className="flex-auto h-full">
+            <div className="py-10 max-w-2xl mx-auto">{props.children}</div>
+          </main>
+        </div>
+      </MediaQuery>
     </div>
   )
 }

@@ -1,38 +1,25 @@
 import { useSession } from 'next-auth/react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { useQueryClient, useMutation } from 'react-query'
 import { InputField } from '@/components/common/InputField'
+import { useCreateTodo } from '@/hooks/todo'
 
-function InputText(): any {
+type IProps = {
+  projectId?: number
+}
+
+const InputText: React.VFC<IProps> = ({ projectId }) => {
   const { data: session, status } = useSession()
   const { register, handleSubmit, reset } = useForm()
-  const queryClient = useQueryClient()
+  const createTodoMutation = useCreateTodo()
+  const userId = session?.user.id
 
   const onSubmit = async ({ content }) => {
     if (content !== '') {
-      storeTaskMutate(content)
+      createTodoMutation.mutate({ content, userId, projectId })
       reset()
     }
   }
-
-  const userId = session?.user.id
-
-  const { mutate: storeTaskMutate } = useMutation(
-    (content: string) =>
-      fetch('/api/tasks', {
-        method: 'POST',
-        body: JSON.stringify({
-          content,
-          userId,
-        }),
-      }),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('tasks')
-      },
-    }
-  )
 
   return (
     <>
