@@ -12,8 +12,6 @@ import 'minireset.css'
 import '../../styles/globals.css'
 import 'tailwindcss/tailwind.css'
 
-export const AuthContext = React.createContext(null)
-
 const queryClient = new QueryClient()
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {

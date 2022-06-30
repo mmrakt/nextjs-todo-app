@@ -5,7 +5,7 @@ import TodoContainer from '../../components/todo/TodoContainer'
 import Loading from '@/components/common/Loading'
 import { useFetchProject } from '@/hooks/project'
 
-const ProjectTodo: React.VFC = () => {
+const Project: React.VFC = () => {
   const { query } = useRouter()
   const projectId = query ? String(query.projectId) : ''
   const { data: project, isLoading, isError } = useFetchProject(projectId)
@@ -23,4 +23,4 @@ const ProjectTodo: React.VFC = () => {
   )
 }
 
-export default ProjectTodo
+export default Project
