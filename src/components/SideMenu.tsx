@@ -16,10 +16,8 @@ import { useFetchProjects } from '@/hooks/project'
 import { useCreateProject } from '@/hooks/project'
 
 const SideMenu: React.VFC = () => {
-  // const { data: session }: any = useSession()
-  // const userId = session?.user?.id
-  // TODO: 本番では差し替えておく
-  const userId = 'cl2myuo0x00297kiby38pl87e'
+  const { data: session }: any = useSession()
+  const userId = session?.user?.id
   const queryResults = useFetchProjects(userId)
   const createProjectMutation = useCreateProject()
   const { isOpen, onOpen, onClose } = useDisclosure()

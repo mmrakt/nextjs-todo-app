@@ -19,8 +19,12 @@ const useFetchTodos = ({ userId, projectId = 0 }: IProps) => {
         {
           queryKey: [
             'todos',
-            { status: TODO_STATUSES['isNotCompleted'] },
-            sortNum,
+            {
+              status: TODO_STATUSES['isNotCompleted'],
+              sortNum,
+              projectId,
+            },
+            ,
           ],
           queryFn: () =>
             fetchTodos(
@@ -31,7 +35,14 @@ const useFetchTodos = ({ userId, projectId = 0 }: IProps) => {
             ),
         },
         {
-          queryKey: ['todos', { status: TODO_STATUSES['isCompleted'] }],
+          queryKey: [
+            'todos',
+            {
+              status: TODO_STATUSES['isCompleted'],
+              sortNum,
+              projectId,
+            },
+          ],
           queryFn: () =>
             fetchTodos(
               userId,
@@ -45,7 +56,11 @@ const useFetchTodos = ({ userId, projectId = 0 }: IProps) => {
         {
           queryKey: [
             'todos',
-            { status: TODO_STATUSES['isNotCompleted'] },
+            {
+              status: TODO_STATUSES['isNotCompleted'],
+              sortNum,
+              projectId,
+            },
             sortNum,
           ],
           queryFn: () =>
