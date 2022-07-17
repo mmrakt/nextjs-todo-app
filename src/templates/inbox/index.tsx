@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Layout from '../../components/Layout'
+import SpaLayout from '../../components/SpaLayout'
 import TodoContainer from '../../components/todo/TodoContainer'
 import useCheckSession from '../../hooks/useCheckSession'
 
@@ -14,9 +14,9 @@ const Inbox: React.VFC = () => {
   }
 
   return (
-    <Layout>
+    <SpaLayout>
       <TodoContainer user={result} />
-    </Layout>
+    </SpaLayout>
   )
 }
 

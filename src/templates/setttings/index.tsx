@@ -7,12 +7,11 @@ import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { useQueryClient, useMutation } from 'react-query'
+import AvatalTrimmingModal from '../../components/AvatarTrimmingModal'
 import Layout from '../../components/Layout'
 import Button from '../../components/common/Button'
 import { InputField, TextareaField } from '../../components/common/InputField'
 import 'react-image-crop/dist/ReactCrop.css'
-
-import AvatalTrimmingModal from './AvatarTrimmingModal'
 
 type Inputs = {
   name: string
@@ -131,11 +130,11 @@ function Settings(): React.ReactElement {
               </label>
             </button>
           </div>
-          <AvatalTrimmingModal
+          {/* <AvatalTrimmingModal
             modalIsOpen={modalIsOpen}
             onRequestClose={() => setModalIsOpen(false)}
             src={src}
-          />
+          /> */}
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="p-3">
               <div className="">

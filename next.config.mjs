@@ -33,6 +33,14 @@ const config = {
       },
     ]
   },
+  async rewrites() {
+    return [
+      {
+        source: '/:any*',
+        destination: '/',
+      },
+    ]
+  },
 }
 
 export default config

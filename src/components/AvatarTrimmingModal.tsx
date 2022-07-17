@@ -6,8 +6,8 @@ import Modal from 'react-modal'
 import { useMutation, useQueryClient } from 'react-query'
 
 import 'react-image-crop/dist/ReactCrop.css'
-import { defaultCrop, imageCropped } from '../../utils/crop'
-import { formatDateTime } from '../../utils/date'
+import { defaultCrop, imageCropped } from '../utils/crop'
+import { formatDateTime } from '../utils/date'
 
 const modalStyle = {
   overlay: {
