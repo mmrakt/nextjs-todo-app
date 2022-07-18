@@ -1,26 +1,25 @@
-import Link from 'next/link'
 import React from 'react'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 type IProps = {
   displayText?: string
-  href?: string
+  to?: string
   onClick?: () => void
 }
 
-const MenuItem: React.VFC<IProps> = ({ displayText, href, onClick }) => {
+const MenuItem: React.VFC<IProps> = ({ displayText, to, onClick }) => {
   const items = () => {
-    if (href && onClick) {
+    if (to && onClick) {
       return (
-        <Link href={href}>
+        <Link to={to}>
           <a>
             <div onClick={onClick}>{displayText}</div>
           </a>
         </Link>
       )
-    } else if (href) {
+    } else if (to) {
       return (
-        <Link href={href}>
+        <Link to={to}>
           <a>{displayText}</a>
         </Link>
       )

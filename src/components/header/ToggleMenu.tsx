@@ -24,18 +24,19 @@ const ToggleMenu = React.memo(() => {
           tabIndex={0}
           className="dropdown-content menu shadow bg-dark-800 rounded-box w-52"
         >
-          {session?.user ? (
-            <>
-              <MenuItem href="/inbox" displayText="TODO" />
-              <MenuItem href="/settings" displayText="Settings" />
-              <MenuItem onClick={handleSignout} displayText="Sign out" />
-            </>
-          ) : (
-            <>
-              <MenuItem href="/signin" displayText="Sign in" />
-              <MenuItem href="/signup" displayText="Sign up" />
-            </>
-          )}
+          {/* Fix */}
+          {/* {session?.user ? ( */}
+          <>
+            <MenuItem to="/inbox" displayText="TODO" />
+            <MenuItem to="/settings" displayText="Settings" />
+            <MenuItem onClick={handleSignout} displayText="Sign out" />
+          </>
+          {/* // ) : (
+          //   <>
+          //     <MenuItem to="/signin" displayText="Sign in" />
+          //     <MenuItem to="/signup" displayText="Sign up" />
+          //   </>
+          // )} */}
         </ul>
       </div>
     </>
