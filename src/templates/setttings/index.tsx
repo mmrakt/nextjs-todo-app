@@ -1,8 +1,8 @@
 import { useToast, UseToastOptions } from '@chakra-ui/react'
+import Image from 'next/legacy/image'
+import { useRouter } from 'next/router'
 import { User } from 'next-auth'
 import { useSession } from 'next-auth/react'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 

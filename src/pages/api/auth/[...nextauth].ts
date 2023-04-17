@@ -28,13 +28,15 @@ export default NextAuth({
       clientSecret: process.env.TWITTER_CLIENT_SECRET,
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: '/signin',
   },
   callbacks: {
     async session({ session, user, token }) {
       session.user.id = user.id
-      session.user.profile = user.profile as string
+      // TODO: 直す
+      // session.user.profile = user.profile as string
       return Promise.resolve(session)
     },
   },

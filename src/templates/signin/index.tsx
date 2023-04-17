@@ -1,5 +1,5 @@
-import { ClientSafeProvider, getProviders, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { ClientSafeProvider, getProviders, useSession } from 'next-auth/react'
 import React, { ReactElement } from 'react'
 
 import Layout from '../../components/Layout'

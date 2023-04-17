@@ -8,9 +8,7 @@ const Header = React.memo(() => (
   <div className="shadow-lg h-20 flex dark:bg-dark-800">
     <MediaQuery maxWidth={1000}>
       <p className="mx-4 py-8 font-black text-xl">
-        <Link to="/">
-          <a>TODO App</a>
-        </Link>
+        <Link to="/">TODO App</Link>
       </p>
     </MediaQuery>
     <MediaQuery minWidth={1001}>

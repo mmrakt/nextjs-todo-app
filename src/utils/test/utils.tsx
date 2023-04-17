@@ -1,3 +1,4 @@
+import events from 'events'
 import Queries from '@testing-library/dom/types/queries'
 import { render as defaultRender, RenderResult } from '@testing-library/react'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
@@ -21,6 +22,7 @@ export function render(
     reload: jest.fn(),
     back: jest.fn(),
     beforePopState: jest.fn(),
+    forward: jest.fn(),
     events: {
       on: jest.fn(),
       off: jest.fn(),

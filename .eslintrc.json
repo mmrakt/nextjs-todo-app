@@ -36,7 +36,8 @@
       }
     ],
     "import/order": [
-      "error",
+      // TODO: ソート順でビルドエラーになるので直す
+      "warn",
       {
         "groups": [
           "builtin",

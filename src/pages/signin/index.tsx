@@ -6,7 +6,7 @@ import SocialButton from '../../components/socialButton'
 import Layout from '@/components/Layout'
 import Loading from '@/components/common/Loading'
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const providers = await getProviders()
   return {
     props: { providers },

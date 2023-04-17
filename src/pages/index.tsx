@@ -1,6 +1,6 @@
-import { useSession } from 'next-auth/react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import Loading from '@/components/common/Loading'
 
 const ProtectedRoutes = dynamic(() => import('../routes/ProtectedRoutes'))

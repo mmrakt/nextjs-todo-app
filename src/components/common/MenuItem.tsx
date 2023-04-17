@@ -12,9 +12,7 @@ const MenuItem: React.VFC<IProps> = ({ displayText, to, onClick }) => {
     if (to && onClick) {
       return (
         <Link to={to}>
-          <a>
-            <div onClick={onClick}>{displayText}</div>
-          </a>
+          <div onClick={onClick}>{displayText}</div>
         </Link>
       )
     } else if (to) {

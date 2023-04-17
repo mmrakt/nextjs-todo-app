@@ -1,7 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { SessionProvider } from 'next-auth/react'
 import NextNprogress from 'nextjs-progressbar'
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
